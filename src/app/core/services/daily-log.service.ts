@@ -23,6 +23,10 @@ export class DailyLogService {
     return this.logs().find((log) => log.date === date);
   }
 
+  getAllLogs(): DailyLog[] {
+    return this.logs();
+  }
+
   saveLog(log: DailyLog): void {
     const existingLogs = this.logs();
     const existingLogIndex = existingLogs.findIndex((l) => l.date === log.date);

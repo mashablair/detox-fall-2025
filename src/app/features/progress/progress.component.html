@@ -1,0 +1,25 @@
+<div class="container mx-auto p-6">
+  <div class="bg-white rounded-lg shadow-xl p-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Your Progress</h1>
+
+    @if (lineChartData.datasets.length > 0 && lineChartData.labels && lineChartData.labels.length >
+    0) {
+    <div class="block">
+      <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" [type]="lineChartType">
+      </canvas>
+    </div>
+    } @else {
+    <div class="text-center p-8">
+      <p class="text-gray-600">
+        You don't have any logs yet. Start logging your daily progress to see your charts!
+      </p>
+      <a
+        routerLink="/log-daily"
+        class="mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg"
+      >
+        Log Your First Day
+      </a>
+    </div>
+    }
+  </div>
+</div>

@@ -8,7 +8,7 @@ import { ProtocolService, ProtocolPhase } from '../../core/services/protocol.ser
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './dashboard.component.html', // We will create this file next
-  styleUrls: ['./dashboard.component.scss'], // We will create this file next
+  styles: [],
 })
 export class DashboardComponent implements OnInit {
   dayNumber = signal<number | null>(null);

@@ -8,7 +8,7 @@ import { UserService } from '../../core/services/user.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './onboarding.component.html',
-  styleUrls: ['./onboarding.component.scss'],
+  styles: [],
 })
 export class OnboardingComponent {
   constructor(private userService: UserService, private router: Router) {}

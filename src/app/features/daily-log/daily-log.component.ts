@@ -10,7 +10,7 @@ import { DailyLogService } from '../../core/services/daily-log.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './daily-log.component.html',
-  styleUrls: ['./daily-log.component.scss'],
+  styles: [],
 })
 export class DailyLogComponent implements OnInit {
   logForm: FormGroup;
