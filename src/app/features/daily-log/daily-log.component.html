@@ -1,0 +1,118 @@
+<div class="container mx-auto p-6">
+  <form [formGroup]="logForm" (ngSubmit)="onSubmit()" class="bg-white rounded-lg shadow-xl p-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Daily Log for {{ today }}</h1>
+
+    <!-- Symptoms Section -->
+    <div formGroupName="symptoms" class="mb-8 p-6 bg-gray-50 rounded-lg">
+      <h2 class="text-2xl font-semibold text-gray-700 mb-4">How are you feeling?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Digestion Slider -->
+        <div>
+          <label for="digestion" class="block text-sm font-medium text-gray-700"
+            >Digestion (1-5)</label
+          >
+          <input
+            id="digestion"
+            type="range"
+            min="1"
+            max="5"
+            formControlName="digestion"
+            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+          />
+        </div>
+        <!-- Bloating Slider -->
+        <div>
+          <label for="bloating" class="block text-sm font-medium text-gray-700"
+            >Bloating (1-5)</label
+          >
+          <input
+            id="bloating"
+            type="range"
+            min="1"
+            max="5"
+            formControlName="bloating"
+            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+          />
+        </div>
+        <!-- Energy Slider -->
+        <div>
+          <label for="energy" class="block text-sm font-medium text-gray-700">Energy (1-5)</label>
+          <input
+            id="energy"
+            type="range"
+            min="1"
+            max="5"
+            formControlName="energy"
+            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+          />
+        </div>
+        <!-- Sleep Slider -->
+        <div>
+          <label for="sleep" class="block text-sm font-medium text-gray-700"
+            >Sleep Quality (1-5)</label
+          >
+          <input
+            id="sleep"
+            type="range"
+            min="1"
+            max="5"
+            formControlName="sleep"
+            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+          />
+        </div>
+        <!-- Skin/Eye Puffiness Slider -->
+        <div class="md:col-span-2">
+          <label for="skinEyePuffiness" class="block text-sm font-medium text-gray-700"
+            >Skin/Eye Puffiness (1-5)</label
+          >
+          <input
+            id="skinEyePuffiness"
+            type="range"
+            min="1"
+            max="5"
+            formControlName="skinEyePuffiness"
+            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Supplements Section -->
+    <div formGroupName="supplements" class="mb-8 p-6 bg-gray-50 rounded-lg">
+      <h2 class="text-2xl font-semibold text-gray-700 mb-4">Supplements Taken</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        @for (supplement of supplementsForToday; track supplement) {
+        <div>
+          <label class="inline-flex items-center">
+            <input type="checkbox" [formControlName]="supplement" class="rounded text-indigo-600" />
+            <span class="ml-2 text-gray-700">{{ supplement }}</span>
+          </label>
+        </div>
+        }
+      </div>
+    </div>
+
+    <!-- Notes Section -->
+    <div class="mb-8">
+      <label for="notes" class="block text-sm font-medium text-gray-700">Notes</label>
+      <textarea
+        id="notes"
+        formControlName="notes"
+        rows="4"
+        class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        placeholder="Any additional notes about your meals, feelings, etc."
+      ></textarea>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="text-center">
+      <button
+        type="submit"
+        [disabled]="!logForm.valid"
+        class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out disabled:bg-gray-400"
+      >
+        Save Today's Log
+      </button>
+    </div>
+  </form>
+</div>
