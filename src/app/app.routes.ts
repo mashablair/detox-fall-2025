@@ -5,8 +5,14 @@ import { publicGuard } from './core/guards/public.guard';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { DailyLogComponent } from './features/daily-log/daily-log.component';
 import { ProgressComponent } from './features/progress/progress.component';
+import { LandingComponent } from './features/landing/landing.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    component: LandingComponent,
+    canActivate: [publicGuard],
+  },
   {
     path: 'onboarding',
     component: OnboardingComponent,
@@ -27,6 +33,5 @@ export const routes: Routes = [
     component: ProgressComponent,
     canActivate: [authGuard],
   },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: '**', redirectTo: '/dashboard' }, // Wildcard route
+  { path: '**', redirectTo: '' }, // Wildcard route
 ];

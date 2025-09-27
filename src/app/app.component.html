@@ -1,4 +1,4 @@
-<app-header></app-header>
-<main class="h-screen w-screen flex flex-col items-center justify-center">
+<app-header *ngIf="showHeader"></app-header>
+<main>
   <router-outlet />
 </main>
