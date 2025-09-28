@@ -37,4 +37,23 @@ export class LandingComponent {
       description: 'Your skin breaks out or feels inflamed, no matter what you try.',
     },
   ];
+
+  solutions = [
+    {
+      id: 1,
+      description: 'Calm inflammation.',
+    },
+    {
+      id: 2,
+      description: 'Heal your gut.',
+    },
+    {
+      id: 3,
+      description: 'Rebalance your microbiome.',
+    },
+    {
+      id: 4,
+      description: 'Build sustainable daily habits.',
+    },
+  ];
 }
