@@ -1,6 +1,6 @@
 <div class="bg-black">
   <header class="absolute inset-x-0 top-0 z-50">
-    <nav aria-label="Global" class="flex items-center justify-between p-6 lg:px-8">
+    <nav aria-label="Global" class="flex items-center justify-between p-6 lg:px-8 glass-effect">
       <div class="flex lg:flex-1">
         <a href="#" class="-m-1.5 p-1.5">
           <span class="sr-only">Your Company</span>
@@ -21,7 +21,7 @@
                 ></path>
               </g>
             </svg>
-            <span class="text-white text-lg font-medium">90 Day Gut Reset</span>
+            <span class="text-white text-lg font-medium font-display">90 Day Gut Reset</span>
           </div>
         </a>
       </div>
@@ -62,6 +62,28 @@
         >
       </div>
     </nav>
+
+    <svg style="position: absolute; width: 0; height: 0">
+      <filter
+        id="glass"
+        x="-50%"
+        y="-50%"
+        width="200%"
+        height="200%"
+        primitiveUnits="objectBoundingBox"
+      >
+        <feImage x="-50%" y="-50%" width="200%" height="200%" result="map" />
+        <feGaussianBlur in="SourceGraphic" stdDeviation="0.02" result="blur" />
+        <feDisplacementMap
+          id="disp"
+          in="blur"
+          in2="map"
+          scale="0.8"
+          xChannelSelector="R"
+          yChannelSelector="G"
+        ></feDisplacementMap>
+      </filter>
+    </svg>
     <el-dialog>
       <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
         <div tabindex="0" class="fixed inset-0 focus:outline-none">
@@ -178,10 +200,12 @@
         </div>
       </div>
       <div class="text-center">
-        <h1 class="text-5xl font-medium tracking-tight text-balance text-white sm:text-7xl">
+        <h1
+          class="font-display text-5xl font-medium tracking-tight text-balance text-white sm:text-7xl"
+        >
           Reset Your Gut. Reset Your Life.
         </h1>
-        <p class="mt-8 text-lg text-pretty text-gray-400 sm:text-xl/8">
+        <p class="mt-8 text-lg text-pretty text-gray-400 sm:text-xl/8 font-body">
           A science-backed, functional medicine-inspired 90-day program to reduce bloating, restore
           energy, and feel like yourself again.
         </p>
@@ -199,7 +223,7 @@
     </div>
     <div
       aria-hidden="true"
-      class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+      class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-50rem)]"
     >
       <div
         style="
@@ -226,4 +250,46 @@
       ></div>
     </div>
   </div>
+
+  <!-- The Struggle Is Real Section -->
+
+  <!-- Common Gut Health Struggles Section -->
+  <section class="text-white py-20 px-6 sm:px-12 lg:px-24">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-medium mb-4 font-display">Common Gut Health Struggles</h2>
+        <p class="text-gray-400 max-w-3xl mx-auto font-body">
+          Does this sound familiar? You've tried diets, supplements, and advice—but nothing sticks
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @for (struggle of commonGutHealthStruggles; track struggle.icon) {
+        <!-- Digestive Discomfort -->
+        <div
+          class="bg-brand-800/20 rounded-2xl p-8 border border-brand-500/10 hover:border-brand-500/20 transition-all duration-300"
+        >
+          <div>
+            <div class="w-12 h-12 rounded-lg bg-brand-500/20 flex items-center justify-center mb-4">
+              <svg
+                class="w-6 h-6 text-brand-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  [attr.d]="struggle.icon"
+                />
+              </svg>
+            </div>
+            <p class="text-gray-400 font-body">{{ struggle.description }}</p>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </section>
 </div>

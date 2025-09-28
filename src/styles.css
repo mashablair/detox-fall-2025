@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -13,4 +14,6 @@
   --color-brand-900: #064e3b;
 
   --shadow-soft: 0 10px 30px -10px rgba(16, 185, 129, 0.35);
+  /* Fonts */
+  --font-display: "Clash Display", sans-serif;
 }
