@@ -30,3 +30,13 @@
   /* Fonts */
   --font-display: "Clash Display", sans-serif;
 }
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Account for fixed header when scrolling to sections */
+section[id] {
+  scroll-margin-top: 100px;
+}

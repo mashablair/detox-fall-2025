@@ -1,5 +1,5 @@
 <div class="bg-cream-100">
-  <header class="absolute inset-x-0 top-0 z-50">
+  <header class="sticky top-0 z-50">
     <nav
       aria-label="Global"
       class="flex items-center justify-between p-6 lg:px-8 bg-cream-50/80 backdrop-blur-sm border-b border-cream-300/30"
@@ -43,10 +43,11 @@
         </button>
       </div>
       <div class="hidden lg:flex lg:gap-x-12">
-        <a href="#" class="text-sm/6 font-semibold text-cream-900">Продукт</a>
-        <a href="#" class="text-sm/6 font-semibold text-cream-900">Возможности</a>
-        <a href="#" class="text-sm/6 font-semibold text-cream-900">Магазин</a>
-        <a href="#" class="text-sm/6 font-semibold text-cream-900">О нас</a>
+        <a href="#problems" class="text-sm/6 font-semibold text-cream-900">Почему детокс?</a>
+        <a href="#program" class="text-sm/6 font-semibold text-cream-900">О программе</a>
+        <a href="#plan" class="text-sm/6 font-semibold text-cream-900">План</a>
+        <a href="#faq" class="text-sm/6 font-semibold text-cream-900">FAQ</a>
+        <a href="#about" class="text-sm/6 font-semibold text-cream-900">О нас</a>
       </div>
       <div class="hidden lg:flex lg:flex-1 lg:justify-end">
         <a href="#" class="text-sm/6 font-semibold text-cream-900"
@@ -111,22 +112,37 @@
               <div class="-my-6 divide-y divide-cream-300/30">
                 <div class="space-y-2 py-6">
                   <a
-                    href="#"
+                    href="#problems"
+                    command="close"
+                    commandfor="mobile-menu"
                     class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-cream-900 hover:bg-brand-100"
-                    >Продукт</a
+                    >Почему детокс?</a
                   >
                   <a
-                    href="#"
+                    href="#program"
+                    command="close"
+                    commandfor="mobile-menu"
                     class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-cream-900 hover:bg-brand-100"
-                    >Возможности</a
+                    >О программе</a
                   >
                   <a
-                    href="#"
+                    href="#plan"
+                    command="close"
+                    commandfor="mobile-menu"
                     class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-cream-900 hover:bg-brand-100"
-                    >Магазин</a
+                    >План</a
                   >
                   <a
-                    href="#"
+                    href="#faq"
+                    command="close"
+                    commandfor="mobile-menu"
+                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-cream-900 hover:bg-brand-100"
+                    >FAQ</a
+                  >
+                  <a
+                    href="#about"
+                    command="close"
+                    commandfor="mobile-menu"
                     class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-cream-900 hover:bg-brand-100"
                     >О нас</a
                   >
@@ -203,7 +219,9 @@
             class="rounded-md bg-brand-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-soft hover:bg-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
             >Присоединиться</a
           >
-          <a href="#" class="text-sm/6 font-semibold text-cream-900"
+          <a
+            href="#"
+            class="text-sm/6 font-semibold text-cream-900 border border-brand-600 px-3.5 py-2 rounded-md"
             >Подробнее <span aria-hidden="true">→</span></a
           >
         </div>
@@ -284,7 +302,7 @@
   </section>
 
   <!-- Problems Section -->
-  <section class="text-cream-900 py-20 px-6 sm:px-12 lg:px-24 bg-cream-200/30">
+  <section id="problems" class="text-cream-900 py-20 px-6 sm:px-12 lg:px-24 bg-cream-200/30">
     <div class="max-w-7xl mx-auto">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         <!-- Image Column -->
@@ -295,9 +313,6 @@
               alt="Женщина наслаждается здоровым образом жизни с хорошим здоровьем кишечника"
               class="rounded-2xl shadow-2xl w-full h-auto object-cover max-w-[500px]"
             />
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-brand-900/10 to-transparent rounded-2xl"
-            ></div>
           </div>
         </div>
 
@@ -377,16 +392,13 @@
         </div>
 
         <!-- Image Column -->
-        <div class="order-1 lg:order-2">
+        <div class="order-2">
           <div class="relative">
             <img
               src="../../../assets/fall-cooking.png"
               alt="Женщина поддерживает естественные процессы детоксикации"
               class="rounded-2xl shadow-2xl w-full h-auto object-cover max-w-[500px]"
             />
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-brand-900/10 to-transparent rounded-2xl"
-            ></div>
           </div>
         </div>
       </div>
@@ -395,6 +407,7 @@
 
   <!-- 90-Day Roadmap Timeline Section -->
   <section
+    id="plan"
     class="text-cream-900 py-20 px-6 sm:px-12 lg:px-24 bg-gradient-to-b from-transparent to-cream-200/40"
   >
     <div class="max-w-7xl mx-auto">
@@ -527,7 +540,7 @@
   </section>
 
   <!-- What's in the Program Section -->
-  <section class="text-cream-900 py-20 px-6 sm:px-12 lg:px-24 bg-cream-200/30">
+  <section id="program" class="text-cream-900 py-20 px-6 sm:px-12 lg:px-24 bg-cream-200/30">
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-16">
         <h2 class="text-3xl font-medium mb-4 font-display">Что будет в программе</h2>
@@ -669,7 +682,7 @@
   </section>
 
   <!-- FAQ Section -->
-  <section class="text-cream-900 py-20 px-6 sm:px-12 lg:px-24">
+  <section id="faq" class="text-cream-900 py-20 px-6 sm:px-12 lg:px-24">
     <div class="max-w-4xl mx-auto">
       <h2
         class="text-4xl font-semibold tracking-tight text-cream-900 sm:text-5xl font-display mb-16"
@@ -881,7 +894,7 @@
   </section>
 
   <!-- About Me / Why I Built This Section -->
-  <section class="isolate overflow-hidden bg-cream-200/50 px-6 lg:px-8">
+  <section id="about" class="isolate overflow-hidden bg-cream-200/50 px-6 lg:px-8">
     <div class="relative mx-auto max-w-2xl py-24 sm:py-32 lg:max-w-4xl">
       <!-- Background Effects -->
       <div
@@ -944,4 +957,23 @@
       </figure>
     </div>
   </section>
+
+  <!-- Footer with Lemon Image -->
+  <footer
+    class="relative bg-cover bg-center pb-12 pt-64"
+    style="background-image: url('assets/lemon.png')"
+  >
+    <!-- Dark overlay -->
+    <div class="absolute inset-0 bg-black/60"></div>
+
+    <!-- Footer content -->
+    <div class="relative mx-auto max-w-7xl px-6 lg:px-8 text-center text-white">
+      <p class="text-sm sm:text-base font-medium mb-2">
+        © Maria Blair Creative Studio · Осенний Детокс
+      </p>
+      <p class="text-xs sm:text-sm opacity-90">
+        Образовательный проект · Не является медицинской рекомендацией
+      </p>
+    </div>
+  </footer>
 </div>
