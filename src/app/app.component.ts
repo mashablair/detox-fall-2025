@@ -13,14 +13,17 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   title = 'gut-reset-tracker';
-  showHeader: boolean = true;
+  showHeader: boolean = false;
 
   constructor(private router: Router) {
     this.router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
-        // Hide header on the landing page
-        this.showHeader = event.urlAfterRedirects !== '/';
+        // Show header only on authenticated routes (dashboard, log-daily, progress)
+        const authenticatedRoutes = ['/dashboard', '/log-daily', '/progress'];
+        // Extract the path without hash fragments
+        const path = event.urlAfterRedirects.split('#')[0];
+        this.showHeader = authenticatedRoutes.some((route) => path.startsWith(route));
       });
   }
 }
