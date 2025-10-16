@@ -217,9 +217,9 @@
             >Присоединиться</a
           >
           <a
-            href="#"
-            class="text-sm/6 font-semibold text-cream-900 border border-brand-600 px-3.5 py-2 rounded-md"
-            >Подробнее <span aria-hidden="true">→</span></a
+            href="#telegram"
+            class="text-sm/6 font-semibold text-cream-900 border border-brand-600 px-3.5 py-2 rounded-md hover:bg-brand-50 transition-colors"
+            >Перейти в Telegram группу <span aria-hidden="true">→</span></a
           >
         </div>
       </div>
@@ -253,8 +253,6 @@
       ></div>
     </div>
   </div>
-
-  <!-- The Struggle Is Real Section -->
 
   <!-- Common Toxin Load Struggles Section -->
   <section class="text-cream-900 py-20 px-6 sm:px-12 lg:px-24">
@@ -888,8 +886,81 @@
     </div>
   </section>
 
+  <!-- Telegram Group Section -->
+  <section
+    id="telegram"
+    class="text-cream-900 py-20 px-6 sm:px-12 lg:px-24 bg-gradient-to-b from-brand-50/30 to-transparent"
+  >
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-white rounded-2xl shadow-xl border border-brand-300/30 p-8 md:p-12">
+        <!-- Telegram Icon -->
+        <div class="flex justify-center mb-6">
+          <div
+            class="w-16 h-16 pr-1.5 rounded-full bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shadow-lg"
+          >
+            <img
+              src="../../../assets/telegram.svg"
+              alt="Telegram"
+              class="w-[44px] h-[44px] object-cover"
+            />
+          </div>
+        </div>
+
+        <!-- Heading -->
+        <h2 class="text-3xl font-medium mb-6 text-center font-display">
+          Присоединяйтесь к нашей Telegram группе
+        </h2>
+
+        <!-- Content -->
+        <div class="space-y-6 text-center">
+          <p class="text-lg text-cream-700 font-body">
+            Наша основная группа поддержки и обучения проходит в
+            <strong class="text-brand-700">закрытой Telegram группе</strong>, где доктор Елена ведет
+            программу детоксикации.
+          </p>
+
+          <div class="bg-brand-50/50 rounded-xl p-6 border border-brand-300/40">
+            <p class="text-cream-800 font-body mb-4">
+              📅 <strong>Программа уже в процессе!</strong> Но вы все еще можете присоединиться.
+            </p>
+            <p class="text-cream-700 font-body">
+              Чтобы получить доступ к закрытой группе, отправьте запрос на email:
+            </p>
+            <a
+              href="mailto:mashablair@gmail.com?subject=Запрос на присоединение к Telegram группе Детокс"
+              class="inline-block mt-4 text-lg font-semibold text-brand-700 hover:text-brand-800 transition-colors"
+            >
+              mashablair@gmail.com
+            </a>
+          </div>
+
+          <!-- Alternative: Use the tracker -->
+          <div class="mt-8 pt-6">
+            <p class="text-cream-700 font-body mb-4">
+              Или начните прямо сейчас с нашего онлайн-трекера:
+            </p>
+            <a
+              routerLink="/onboarding"
+              class="inline-flex items-center rounded-md bg-brand-600 px-6 py-3 text-base font-semibold text-white shadow-soft hover:bg-brand-700 transition-colors duration-200"
+            >
+              Начать с трекера
+              <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Dr. Elena Section (Mirrored) -->
-  <section class="isolate overflow-hidden bg-white px-6 lg:px-8">
+  <section id="about" class="isolate overflow-hidden bg-white px-6 lg:px-8">
     <div class="relative mx-auto max-w-2xl py-24 sm:py-32 lg:max-w-4xl">
       <!-- Background Effects (Mirrored) -->
       <div
@@ -928,11 +999,6 @@
               может стать легкой, осознанной и, самое главное,
               <span class="text-brand-700 font-semibold">приносить радость</span>.
             </p>
-            <p>
-              Моя цель — быть для вас не просто проводником в мире здоровья и натуропатии, но и
-              другом, который готов выслушать, понять и помочь найти ответы. Я верю, что мы вместе
-              сможем сделать вашу жизнь более здоровой, счастливой и наполненной энергией.
-            </p>
           </blockquote>
         </div>
 
@@ -955,7 +1021,7 @@
   </section>
 
   <!-- About Me / Why I Built This Section -->
-  <section id="about" class="isolate overflow-hidden bg-cream-200/50 px-6 lg:px-8">
+  <section class="isolate overflow-hidden bg-cream-200/50 px-6 lg:px-8">
     <div class="relative mx-auto max-w-2xl py-24 sm:py-32 lg:max-w-4xl">
       <!-- Background Effects -->
       <div
@@ -1010,7 +1076,7 @@
 
         <!-- Author Info -->
         <figcaption class="text-base lg:col-start-1 lg:row-start-3">
-          <div class="font-semibold text-cream-900 font-display">Мария Блэр</div>
+          <div class="font-semibold text-cream-900 font-display">Мария Блэйр</div>
           <div class="mt-1 text-cream-700 font-body">
             Сертифицированный коуч по здоровью, адвокат здоровья doTerra и создатель приложения
           </div>
