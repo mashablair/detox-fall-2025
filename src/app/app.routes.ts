@@ -6,6 +6,8 @@ import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { DailyLogComponent } from './features/daily-log/daily-log.component';
 import { ProgressComponent } from './features/progress/progress.component';
 import { LandingComponent } from './features/landing/landing.component';
+import { LoginComponent } from './features/auth/login/login.component';
+import { SignupComponent } from './features/auth/signup/signup.component';
 
 export const routes: Routes = [
   {
@@ -14,9 +16,19 @@ export const routes: Routes = [
     canActivate: [publicGuard],
   },
   {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [publicGuard],
+  },
+  {
+    path: 'signup',
+    component: SignupComponent,
+    canActivate: [publicGuard],
+  },
+  {
     path: 'onboarding',
     component: OnboardingComponent,
-    canActivate: [publicGuard],
+    canActivate: [authGuard],
   },
   {
     path: 'dashboard',

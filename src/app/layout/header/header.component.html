@@ -3,9 +3,32 @@
     <h1 class="text-xl font-bold">
       <a routerLink="/">90-Day Gut Reset</a>
     </h1>
-    <div class="flex space-x-4">
-      <a routerLink="/dashboard" class="hover:text-gray-300">Dashboard</a>
-      <a routerLink="/progress" class="hover:text-gray-300">Progress</a>
+
+    @if (authService.isAuthenticated()) {
+    <div class="flex items-center space-x-6">
+      <a routerLink="/dashboard" class="hover:text-gray-300 transition">Dashboard</a>
+      <a routerLink="/progress" class="hover:text-gray-300 transition">Progress</a>
+
+      <div class="flex items-center space-x-4">
+        <span class="text-sm text-gray-300">{{ authService.getCurrentUser()?.email }}</span>
+        <button
+          (click)="logout()"
+          class="bg-emerald-600 hover:bg-emerald-700 px-4 py-2 rounded-lg text-sm font-medium transition"
+        >
+          Logout
+        </button>
+      </div>
     </div>
+    } @else {
+    <div class="flex space-x-4">
+      <a routerLink="/login" class="hover:text-gray-300 transition">Sign In</a>
+      <a
+        routerLink="/signup"
+        class="bg-emerald-600 hover:bg-emerald-700 px-4 py-2 rounded-lg text-sm font-medium transition"
+      >
+        Get Started
+      </a>
+    </div>
+    }
   </nav>
 </header>
