@@ -2,18 +2,31 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-50: #ecfdf5;
-  --color-brand-100: #d1fae5;
-  --color-brand-200: #a7f3d0;
-  --color-brand-300: #6ee7b7;
-  --color-brand-400: #34d399;
-  --color-brand-500: #10b981;
-  --color-brand-600: #059669;
-  --color-brand-700: #047857;
-  --color-brand-800: #065f46;
-  --color-brand-900: #064e3b;
+  /* Warm Fall Detox Color Palette */
+  --color-brand-50: #f9faf7;
+  --color-brand-100: #e9f0e3;
+  --color-brand-200: #d4e1c9;
+  --color-brand-300: #b5c9a0;
+  --color-brand-400: #96b17a;
+  --color-brand-500: #7a9b5d;
+  --color-brand-600: #5f7a45;
+  --color-brand-700: #4d6338;
+  --color-brand-800: #3e4f2d;
+  --color-brand-900: #2f3d23;
 
-  --shadow-soft: 0 10px 30px -10px rgba(16, 185, 129, 0.35);
+  /* Warm neutrals */
+  --color-cream-50: #fefdfb;
+  --color-cream-100: #faf7f2;
+  --color-cream-200: #f5ede3;
+  --color-cream-300: #ede3d5;
+  --color-cream-400: #e3d5c1;
+  --color-cream-500: #d4c1a8;
+  --color-cream-600: #b8a68e;
+  --color-cream-700: #8f7d6a;
+  --color-cream-800: #6b5e50;
+  --color-cream-900: #4a3f35;
+
+  --shadow-soft: 0 10px 30px -10px rgba(122, 155, 93, 0.25);
   /* Fonts */
   --font-display: "Clash Display", sans-serif;
 }
