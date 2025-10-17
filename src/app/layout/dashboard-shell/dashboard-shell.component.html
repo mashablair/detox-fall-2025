@@ -1,14 +1,16 @@
 <!-- Dashboard Shell with Sidebar and Top Bar -->
-<app-sidebar></app-sidebar>
+<div class="bg-cream-100 min-h-screen">
+  <app-sidebar></app-sidebar>
 
-<!-- Main content area with top bar -->
-<div class="lg:pl-72">
-  <app-top-bar></app-top-bar>
+  <!-- Main content area with top bar -->
+  <div class="lg:pl-72">
+    <app-top-bar></app-top-bar>
 
-  <!-- Main content - routed components appear here -->
-  <main class="py-10">
-    <div class="px-4 sm:px-6 lg:px-8">
-      <router-outlet />
-    </div>
-  </main>
+    <!-- Main content - routed components appear here -->
+    <main class="py-10">
+      <div class="px-4 sm:px-6 lg:px-8">
+        <router-outlet />
+      </div>
+    </main>
+  </div>
 </div>

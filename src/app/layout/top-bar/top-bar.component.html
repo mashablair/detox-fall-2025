@@ -1,13 +1,13 @@
 <div
-  class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-xs sm:gap-x-6 sm:px-6 lg:px-8"
+  class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-cream-300/30 bg-cream-50/80 backdrop-blur-sm px-4 sm:gap-x-6 sm:px-6 lg:px-8"
 >
   <button
     type="button"
     command="show-modal"
     commandfor="sidebar"
-    class="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900 lg:hidden"
+    class="-m-2.5 p-2.5 text-cream-800 hover:text-cream-900 lg:hidden"
   >
-    <span class="sr-only">Open sidebar</span>
+    <span class="sr-only">Открыть меню</span>
     <svg
       viewBox="0 0 24 24"
       fill="none"
@@ -26,22 +26,22 @@
   </button>
 
   <!-- Separator -->
-  <div aria-hidden="true" class="h-6 w-px bg-gray-200 lg:hidden"></div>
+  <div aria-hidden="true" class="h-6 w-px bg-cream-200 lg:hidden"></div>
 
-  <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-    <form action="#" method="GET" class="grid flex-1 grid-cols-1">
+  <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 justify-end">
+    <!-- <form action="#" method="GET" class="grid flex-1 grid-cols-1">
       <input
         name="search"
-        placeholder="Search"
-        aria-label="Search"
-        class="col-start-1 row-start-1 block size-full bg-white pl-8 text-base text-gray-900 outline-hidden placeholder:text-gray-400 sm:text-sm/6"
+        placeholder="Поиск"
+        aria-label="Поиск"
+        class="col-start-1 row-start-1 block size-full bg-cream-50/80 pl-8 text-base text-cream-900 outline-hidden placeholder:text-cream-400 sm:text-sm/6"
       />
       <svg
         viewBox="0 0 20 20"
         fill="currentColor"
         data-slot="icon"
         aria-hidden="true"
-        class="pointer-events-none col-start-1 row-start-1 size-5 self-center text-gray-400"
+        class="pointer-events-none col-start-1 row-start-1 size-5 self-center text-cream-400"
       >
         <path
           d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
@@ -49,10 +49,10 @@
           fill-rule="evenodd"
         />
       </svg>
-    </form>
+    </form> -->
     <div class="flex items-center gap-x-4 lg:gap-x-6">
-      <button type="button" class="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
-        <span class="sr-only">View notifications</span>
+      <button type="button" class="-m-2.5 p-2.5 text-cream-600 hover:text-cream-700">
+        <span class="sr-only">Уведомления</span>
         <svg
           viewBox="0 0 24 24"
           fill="none"
@@ -71,20 +71,20 @@
       </button>
 
       <!-- Separator -->
-      <div aria-hidden="true" class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200"></div>
+      <div aria-hidden="true" class="hidden lg:block lg:h-6 lg:w-px lg:bg-cream-200"></div>
 
       <!-- Profile dropdown -->
       <el-dropdown class="relative">
         <button class="relative flex items-center">
           <span class="absolute -inset-1.5"></span>
-          <span class="sr-only">Open user menu</span>
+          <span class="sr-only">Профиль пользователя</span>
           <div
-            class="size-8 rounded-full bg-emerald-600 flex items-center justify-center text-white font-semibold outline -outline-offset-1 outline-black/5"
+            class="size-8 rounded-full bg-brand-600 flex items-center justify-center text-white font-semibold outline -outline-offset-1 outline-black/5"
           >
             {{ getUserInitials() }}
           </div>
           <span class="hidden lg:flex lg:items-center">
-            <span aria-hidden="true" class="ml-4 text-sm/6 font-semibold text-gray-900">{{
+            <span aria-hidden="true" class="ml-4 text-sm/6 font-semibold text-cream-900">{{
               authService.getCurrentUser()?.email
             }}</span>
             <svg
@@ -92,7 +92,7 @@
               fill="currentColor"
               data-slot="icon"
               aria-hidden="true"
-              class="ml-2 size-5 text-gray-400"
+              class="ml-2 size-5 text-cream-600"
             >
               <path
                 d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
@@ -105,13 +105,13 @@
         <el-menu
           anchor="bottom end"
           popover
-          class="w-32 origin-top-right rounded-md bg-white py-2 shadow-lg outline-1 outline-gray-900/5 transition transition-discrete [--anchor-gap:--spacing(2.5)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+          class="w-32 origin-top-right rounded-md bg-cream-50 py-2 shadow-lg outline-1 outline-cream-900/5 transition transition-discrete [--anchor-gap:--spacing(2.5)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
         >
           <button
             (click)="logout()"
-            class="block w-full text-left px-3 py-1 text-sm/6 text-gray-900 hover:bg-gray-50 focus:bg-gray-50 focus:outline-hidden"
+            class="block w-full text-left px-3 py-1 text-sm/6 text-cream-900 hover:bg-cream-100 focus:bg-cream-100 focus:outline-hidden"
           >
-            Sign out
+            Выйти
           </button>
         </el-menu>
       </el-dropdown>
