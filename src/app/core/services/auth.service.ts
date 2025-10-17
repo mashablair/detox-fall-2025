@@ -67,35 +67,36 @@ export class AuthService {
 
   // Handle Firebase errors with user-friendly messages
   private handleError(error: any): string {
-    let message = 'An error occurred. Please try again.';
+    let message = 'Произошла ошибка. Пожалуйста, попробуйте снова.';
 
     switch (error.code) {
       case 'auth/email-already-in-use':
-        message = 'This email is already registered. Please sign in instead.';
+        message = 'Этот адрес электронной почты уже зарегистрирован. Пожалуйста, войдите.';
         break;
       case 'auth/invalid-email':
-        message = 'Please enter a valid email address.';
+        message = 'Пожалуйста, введите действительный адрес электронной почты.';
         break;
       case 'auth/operation-not-allowed':
-        message = 'Email/password accounts are not enabled. Please contact support.';
+        message =
+          'Учетные записи по электронной почте/паролю не включены. Пожалуйста, свяжитесь с поддержкой.';
         break;
       case 'auth/weak-password':
-        message = 'Password should be at least 6 characters.';
+        message = 'Пароль должен содержать минимум 6 символов.';
         break;
       case 'auth/user-disabled':
-        message = 'This account has been disabled.';
+        message = 'Этот аккаунт был деактивирован.';
         break;
       case 'auth/user-not-found':
-        message = 'No account found with this email.';
+        message = 'Аккаунт с этим адресом электронной почты не найден.';
         break;
       case 'auth/wrong-password':
-        message = 'Incorrect password.';
+        message = 'Неверный пароль.';
         break;
       case 'auth/invalid-credential':
-        message = 'Invalid email or password.';
+        message = 'Неверный адрес электронной почты или пароль.';
         break;
       case 'auth/too-many-requests':
-        message = 'Too many failed attempts. Please try again later.';
+        message = 'Слишком много неудачных попыток. Пожалуйста, попробуйте позже.';
         break;
     }
 

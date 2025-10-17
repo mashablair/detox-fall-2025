@@ -23,17 +23,17 @@ export class SignupComponent {
   async onSubmit() {
     // Validation
     if (!this.email || !this.password || !this.confirmPassword) {
-      this.errorMessage.set('Please fill in all fields.');
+      this.errorMessage.set('Пожалуйста, заполните все поля.');
       return;
     }
 
     if (this.password !== this.confirmPassword) {
-      this.errorMessage.set('Passwords do not match.');
+      this.errorMessage.set('Пароли не совпадают.');
       return;
     }
 
     if (this.password.length < 6) {
-      this.errorMessage.set('Password must be at least 6 characters.');
+      this.errorMessage.set('Пароль должен содержать минимум 6 символов.');
       return;
     }
 

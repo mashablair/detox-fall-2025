@@ -21,7 +21,7 @@ export class LoginComponent {
 
   async onSubmit() {
     if (!this.email || !this.password) {
-      this.errorMessage.set('Please fill in all fields.');
+      this.errorMessage.set('Пожалуйста, заполните все поля.');
       return;
     }
 
