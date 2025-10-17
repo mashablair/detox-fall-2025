@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -12,17 +13,31 @@ import { AuthService } from '../../../core/services/auth.service';
   styles: [],
 })
 export class SignupComponent {
+  firstName = '';
+  lastName = '';
+  country = '';
   email = '';
   password = '';
   confirmPassword = '';
   errorMessage = signal<string>('');
   isLoading = signal<boolean>(false);
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   async onSubmit() {
     // Validation
-    if (!this.email || !this.password || !this.confirmPassword) {
+    if (
+      !this.firstName ||
+      !this.lastName ||
+      !this.country ||
+      !this.email ||
+      !this.password ||
+      !this.confirmPassword
+    ) {
       this.errorMessage.set('Пожалуйста, заполните все поля.');
       return;
     }
@@ -42,6 +57,17 @@ export class SignupComponent {
 
     try {
       await this.authService.signUp(this.email, this.password);
+
+      // Save initial user profile with all fields except startDate
+      // startDate will be set in the onboarding step
+      this.userService.setUserProfile({
+        firstName: this.firstName,
+        lastName: this.lastName,
+        country: this.country,
+        email: this.email,
+        startDate: '', // Will be set in onboarding
+      });
+
       // After successful signup, navigate to onboarding to set start date
       this.router.navigate(['/onboarding']);
     } catch (error: any) {

@@ -20,10 +20,19 @@ export class OnboardingComponent {
       return;
     }
 
-    this.userService.setUserProfile({ startDate: date });
+    // Get existing profile and merge with startDate
+    const existingProfile = this.userService.userProfile();
+    if (existingProfile) {
+      this.userService.setUserProfile({
+        ...existingProfile,
+        startDate: date,
+      });
+    } else {
+      console.error('No existing profile found');
+      return;
+    }
 
     // After saving, navigate the user to the main dashboard
-    // We will create the '/dashboard' route in a later step
     this.router.navigate(['/dashboard']);
   }
 }

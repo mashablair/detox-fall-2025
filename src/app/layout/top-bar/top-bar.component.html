@@ -84,9 +84,9 @@
             {{ getUserInitials() }}
           </div>
           <span class="hidden lg:flex lg:items-center">
-            <span aria-hidden="true" class="ml-4 text-sm/6 font-semibold text-cream-900">{{
-              authService.getCurrentUser()?.email
-            }}</span>
+            <span aria-hidden="true" class="ml-4 text-sm/6 font-semibold text-cream-900">
+              {{ getUserFullName() }}
+            </span>
             <svg
               viewBox="0 0 20 20"
               fill="currentColor"
@@ -112,6 +112,11 @@
             class="block w-full text-left px-3 py-1 text-sm/6 text-cream-900 hover:bg-cream-100 focus:bg-cream-100 focus:outline-hidden"
           >
             Выйти
+          </button>
+          <button
+            class="block w-full text-left px-3 py-1 text-sm/6 text-cream-900 hover:bg-cream-100 focus:bg-cream-100 focus:outline-hidden"
+          >
+            Профиль
           </button>
         </el-menu>
       </el-dropdown>
