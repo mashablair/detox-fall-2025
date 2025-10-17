@@ -8,8 +8,10 @@ import { ProgressComponent } from './features/progress/progress.component';
 import { LandingComponent } from './features/landing/landing.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { SignupComponent } from './features/auth/signup/signup.component';
+import { DashboardShellComponent } from './layout/dashboard-shell/dashboard-shell.component';
 
 export const routes: Routes = [
+  // Public routes
   {
     path: '',
     component: LandingComponent,
@@ -25,25 +27,31 @@ export const routes: Routes = [
     component: SignupComponent,
     canActivate: [publicGuard],
   },
+  // Onboarding - separate from dashboard shell
   {
     path: 'onboarding',
     component: OnboardingComponent,
     canActivate: [authGuard],
   },
+  // Authenticated routes with dashboard shell
   {
-    path: 'dashboard',
-    component: DashboardComponent,
+    path: '',
+    component: DashboardShellComponent,
     canActivate: [authGuard],
-  },
-  {
-    path: 'log-daily',
-    component: DailyLogComponent,
-    canActivate: [authGuard],
-  },
-  {
-    path: 'progress',
-    component: ProgressComponent,
-    canActivate: [authGuard],
+    children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+      },
+      {
+        path: 'log-daily',
+        component: DailyLogComponent,
+      },
+      {
+        path: 'progress',
+        component: ProgressComponent,
+      },
+    ],
   },
   { path: '**', redirectTo: '' }, // Wildcard route
 ];
