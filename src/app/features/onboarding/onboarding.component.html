@@ -1,29 +1,154 @@
-<div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-  <div class="text-center">
-    <h1 class="text-3xl font-bold text-gray-900">Welcome!</h1>
-    <p class="mt-2 text-gray-600">
-      Let's get started on your 90-day gut reset journey.
-    </p>
-  </div>
+<div
+  class="min-h-screen bg-gradient-to-b from-cream-50 to-cream-100 flex items-center justify-center px-6 py-12"
+>
+  <div class="w-full max-w-2xl">
+    <!-- Main Card -->
+    <div class="bg-white rounded-2xl shadow-xl border border-brand-300/30 p-8 md:p-12">
+      <!-- Icon and Branding -->
+      <div class="flex justify-center mb-6">
+        <div class="flex items-center gap-3">
+          <img src="../../../assets/leaf.svg" alt="Осенний Детокс" class="h-12 w-auto" />
+          <span class="text-cream-900 text-2xl font-medium font-display">Осенний Детокс 2025</span>
+        </div>
+      </div>
 
-  <div class="space-y-4">
-    <div>
-      <label for="startDate" class="block text-sm font-medium text-gray-700">
-        When did you start your challenge?
-      </label>
-      <input
-        type="date"
-        id="startDate"
-        #startDateInput
-        class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-      />
+      <!-- Welcome Message -->
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-medium text-cream-900 mb-4 font-display">Добро пожаловать! 🍁</h1>
+        <p class="text-lg text-cream-700 font-body max-w-xl mx-auto">
+          Начнём ваше путешествие к здоровью и восстановлению. 30-дневная программа мягкой
+          детоксикации.
+        </p>
+      </div>
+
+      <!-- Decorative Divider -->
+      <div class="relative my-8">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-brand-300/30"></div>
+        </div>
+        <div class="relative flex justify-center text-sm">
+          <span class="px-4 bg-white text-cream-600 font-body">Шаг 1 из 1</span>
+        </div>
+      </div>
+
+      <!-- Form Content -->
+      <div class="space-y-6">
+        <!-- Info Box -->
+        <div class="bg-brand-50/50 rounded-xl p-6 border border-brand-300/40">
+          <h3 class="text-lg font-semibold text-cream-900 mb-2 font-display">
+            Когда вы начинаете программу?
+          </h3>
+          <p class="text-cream-700 font-body text-sm">
+            Выберите дату начала вашей программы детоксикации. Это поможет нам отслеживать ваш
+            прогресс и показывать актуальные рекомендации для каждой недели.
+          </p>
+        </div>
+
+        <!-- Date Input -->
+        <div>
+          <label
+            for="startDate"
+            class="block text-base font-medium text-cream-900 mb-3 font-display"
+          >
+            Дата начала программы
+          </label>
+          <input
+            type="date"
+            id="startDate"
+            #startDateInput
+            class="block w-full px-4 py-3 bg-white border border-brand-300 rounded-lg shadow-sm placeholder-cream-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-cream-900 font-body transition-colors"
+          />
+        </div>
+
+        <!-- Program Overview -->
+        <div class="bg-cream-50 rounded-xl p-6 border border-cream-300/50">
+          <h4 class="text-sm font-semibold text-cream-900 mb-3 font-display">Что вас ждёт:</h4>
+          <ul class="space-y-2 text-sm text-cream-700 font-body">
+            <li class="flex items-start">
+              <svg
+                class="w-5 h-5 text-brand-600 mr-2 flex-shrink-0 mt-0.5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              4 недели структурированной программы
+            </li>
+            <li class="flex items-start">
+              <svg
+                class="w-5 h-5 text-brand-600 mr-2 flex-shrink-0 mt-0.5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              Ежедневный трекер привычек и самочувствия
+            </li>
+            <li class="flex items-start">
+              <svg
+                class="w-5 h-5 text-brand-600 mr-2 flex-shrink-0 mt-0.5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              Персональные рекомендации на каждый день
+            </li>
+            <li class="flex items-start">
+              <svg
+                class="w-5 h-5 text-brand-600 mr-2 flex-shrink-0 mt-0.5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              Визуализация прогресса и достижений
+            </li>
+          </ul>
+        </div>
+
+        <!-- CTA Button -->
+        <button
+          (click)="saveStartDate(startDateInput.value)"
+          class="w-full flex justify-center items-center py-4 px-6 border border-transparent rounded-lg shadow-soft text-base font-semibold text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200"
+        >
+          Начать мой путь к здоровью
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        </button>
+
+        <!-- Help Text -->
+        <p class="text-center text-sm text-cream-600 font-body">
+          Вы сможете изменить дату начала в настройках позже
+        </p>
+      </div>
     </div>
 
-    <button
-      (click)="saveStartDate(startDateInput.value)"
-      class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-    >
-      Start Tracking
-    </button>
+    <!-- Footer Note -->
+    <div class="text-center mt-8">
+      <p class="text-sm text-cream-700 font-body">Готовы начать? Выберите дату и приступим! 🌿</p>
+    </div>
   </div>
 </div>
