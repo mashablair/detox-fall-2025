@@ -39,6 +39,10 @@ export class TopBarComponent {
     return this.authService.getCurrentUser()?.email || 'Пользователь';
   }
 
+  navigateToProfile(): void {
+    this.router.navigate(['/profile']);
+  }
+
   async logout() {
     await this.authService.signOut();
     this.router.navigate(['/']);

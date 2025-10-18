@@ -5,6 +5,7 @@ import { publicGuard } from './core/guards/public.guard';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { DailyLogComponent } from './features/daily-log/daily-log.component';
 import { ProgressComponent } from './features/progress/progress.component';
+import { EditProfileComponent } from './features/profile/edit-profile.component';
 import { LandingComponent } from './features/landing/landing.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { SignupComponent } from './features/auth/signup/signup.component';
@@ -50,6 +51,10 @@ export const routes: Routes = [
       {
         path: 'progress',
         component: ProgressComponent,
+      },
+      {
+        path: 'profile',
+        component: EditProfileComponent,
       },
     ],
   },

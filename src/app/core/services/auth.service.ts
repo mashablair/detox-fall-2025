@@ -21,17 +21,26 @@ export class AuthService {
   // Signal for current user (for reactive templates)
   currentUser = signal<User | null>(null);
 
+  // Callback to load user profile - will be set by UserService to avoid circular dependency
+  onUserAuthStateChanged?: (user: User | null) => Promise<void>;
+
   constructor() {
     // Subscribe to auth state changes
-    this.user$.subscribe((user) => {
+    this.user$.subscribe(async (user) => {
       this.currentUser.set(user);
+
+      // Load user profile when auth state changes
+      if (this.onUserAuthStateChanged) {
+        await this.onUserAuthStateChanged(user);
+      }
     });
   }
 
   // Sign up with email and password
-  async signUp(email: string, password: string): Promise<void> {
+  async signUp(email: string, password: string): Promise<User> {
     try {
-      await createUserWithEmailAndPassword(this.auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+      return userCredential.user;
     } catch (error: any) {
       throw this.handleError(error);
     }
@@ -50,6 +59,7 @@ export class AuthService {
   async signOut(): Promise<void> {
     try {
       await signOut(this.auth);
+      // Profile will be cleared via onUserAuthStateChanged callback
     } catch (error: any) {
       throw this.handleError(error);
     }

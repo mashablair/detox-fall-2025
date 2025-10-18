@@ -13,7 +13,7 @@ import { UserService } from '../../core/services/user.service';
 export class OnboardingComponent {
   constructor(private userService: UserService, private router: Router) {}
 
-  saveStartDate(date: string): void {
+  async saveStartDate(date: string): Promise<void> {
     if (!date) {
       // Here you could add some user feedback, like an alert or a message
       console.error('No date selected');
@@ -23,16 +23,21 @@ export class OnboardingComponent {
     // Get existing profile and merge with startDate
     const existingProfile = this.userService.userProfile();
     if (existingProfile) {
-      this.userService.setUserProfile({
-        ...existingProfile,
-        startDate: date,
-      });
+      try {
+        await this.userService.setUserProfile({
+          ...existingProfile,
+          startDate: date,
+        });
+
+        // After saving, navigate the user to the main dashboard
+        this.router.navigate(['/dashboard']);
+      } catch (error) {
+        console.error('Error saving start date:', error);
+        // TODO: You could add error handling UI here
+      }
     } else {
       console.error('No existing profile found');
       return;
     }
-
-    // After saving, navigate the user to the main dashboard
-    this.router.navigate(['/dashboard']);
   }
 }

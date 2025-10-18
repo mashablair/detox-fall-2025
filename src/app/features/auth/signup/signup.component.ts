@@ -56,17 +56,21 @@ export class SignupComponent {
     this.errorMessage.set('');
 
     try {
-      await this.authService.signUp(this.email, this.password);
+      // Sign up and get the created user
+      const user = await this.authService.signUp(this.email, this.password);
 
       // Save initial user profile with all fields except startDate
-      // startDate will be set in the onboarding step
-      this.userService.setUserProfile({
-        firstName: this.firstName,
-        lastName: this.lastName,
-        country: this.country,
-        email: this.email,
-        startDate: '', // Will be set in onboarding
-      });
+      // Pass the user UID directly to avoid timing issues
+      await this.userService.setUserProfile(
+        {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          country: this.country,
+          email: this.email,
+          startDate: '', // Will be set in onboarding
+        },
+        user.uid
+      );
 
       // After successful signup, navigate to onboarding to set start date
       this.router.navigate(['/onboarding']);
