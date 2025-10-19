@@ -45,17 +45,11 @@
                       routerLinkActive="bg-cream-200 text-brand-700"
                       class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-cream-900 hover:bg-cream-100 hover:text-brand-600"
                     >
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        data-slot="icon"
-                        aria-hidden="true"
+                      <img
+                        [src]="'assets/icons/' + item.icon"
+                        [alt]="item.name"
                         class="size-6 shrink-0 text-cream-600 group-hover:text-brand-600"
-                      >
-                        <path [attr.d]="item.icon" stroke-linecap="round" stroke-linejoin="round" />
-                      </svg>
+                      />
                       {{ item.name }}
                     </a>
                   </li>
@@ -94,17 +88,11 @@
                 [routerLinkActiveOptions]="{ exact: false }"
                 class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-cream-900 hover:bg-cream-100 hover:text-brand-600"
               >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  data-slot="icon"
-                  aria-hidden="true"
+                <img
+                  [src]="'assets/icons/' + item.icon"
+                  [alt]="item.name"
                   class="size-6 shrink-0 text-cream-600 group-hover:text-brand-600"
-                >
-                  <path [attr.d]="item.icon" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
+                />
                 {{ item.name }}
               </a>
             </li>

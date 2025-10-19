@@ -105,24 +105,31 @@
         <el-menu
           anchor="bottom end"
           popover
-          class="w-32 origin-top-right rounded-md bg-cream-50 py-2 shadow-lg outline-1 outline-cream-900/5 transition transition-discrete [--anchor-gap:--spacing(2.5)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+          class="w-48 origin-top-right rounded-md bg-cream-50 py-2 shadow-lg outline-1 outline-cream-900/5 transition transition-discrete [--anchor-gap:--spacing(2.5)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
         >
           <button
             (click)="navigateToProfile()"
-            class="block w-full text-left px-3 py-1 text-sm/6 text-cream-900 hover:bg-cream-100 focus:bg-cream-100 focus:outline-hidden"
+            class="flex items-center gap-x-3 w-full text-left px-3 py-1.5 text-sm/6 text-cream-900 hover:bg-cream-100 focus:bg-cream-100 focus:outline-hidden"
           >
+            <img src="assets/icons/user-circle.svg" alt="" class="size-5 text-cream-600" />
             Профиль
           </button>
           <button
             (click)="navigateToSettings()"
-            class="block w-full text-left px-3 py-1 text-sm/6 text-cream-900 hover:bg-cream-100 focus:bg-cream-100 focus:outline-hidden"
+            class="flex items-center gap-x-3 w-full text-left px-3 py-1.5 text-sm/6 text-cream-900 hover:bg-cream-100 focus:bg-cream-100 focus:outline-hidden"
           >
+            <img src="assets/icons/cog-6-tooth.svg" alt="" class="size-5 text-cream-600" />
             Настройки
           </button>
           <button
             (click)="logout()"
-            class="block w-full text-left px-3 py-1 text-sm/6 text-cream-900 hover:bg-cream-100 focus:bg-cream-100 focus:outline-hidden"
+            class="flex items-center gap-x-3 w-full text-left px-3 py-1.5 text-sm/6 text-cream-900 hover:bg-cream-100 focus:bg-cream-100 focus:outline-hidden"
           >
+            <img
+              src="assets/icons/arrow-right-start-on-rectangle.svg"
+              alt=""
+              class="size-5 text-cream-600"
+            />
             Выйти
           </button>
         </el-menu>

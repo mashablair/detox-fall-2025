@@ -1,0 +1,266 @@
+<!-- Hero Section with Welcome -->
+<div class="bg-gradient-to-br from-cream-50 to-cream-100 rounded-2xl shadow-sm p-8 mb-6">
+  <div class="max-w-4xl">
+    <h1 class="text-4xl font-display font-bold text-cream-900 mb-3">
+      Привет, {{ userFirstName() || 'друг' }}! 👋
+    </h1>
+    <p class="text-lg text-cream-700 mb-6">
+      {{ getMotivationalMessage() }}
+    </p>
+
+    <!-- Progress Bar -->
+    @if (currentDay()) {
+    <div class="bg-white rounded-xl p-6 shadow-sm">
+      <div class="flex items-center justify-between mb-3">
+        <div>
+          <p class="text-sm font-medium text-cream-600 uppercase tracking-wide">
+            Прогресс программы
+          </p>
+          <p class="text-3xl font-display font-bold text-cream-900 mt-1">
+            День {{ currentDay() }} <span class="text-xl text-cream-600">из {{ totalDays }}</span>
+          </p>
+        </div>
+        <div class="text-right">
+          <p class="text-sm font-medium text-cream-600">Этап</p>
+          <p class="text-lg font-semibold text-brand-600 mt-1">{{ currentPhase() }}</p>
+        </div>
+      </div>
+
+      <!-- Progress Bar Visual -->
+      <div class="relative w-full h-3 bg-cream-200 rounded-full overflow-hidden">
+        <div
+          class="absolute top-0 left-0 h-full bg-gradient-to-r from-brand-500 to-brand-600 rounded-full transition-all duration-500 ease-out"
+          [style.width]="getProgressWidth()"
+        ></div>
+      </div>
+
+      <p class="text-xs text-cream-600 text-right mt-2">
+        {{ (((currentDay() || 0) / totalDays) * 100).toFixed(0) }}% завершено
+      </p>
+    </div>
+    }
+  </div>
+</div>
+
+<!-- Quick Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+  <!-- Days Completed Card -->
+  <div
+    class="bg-white rounded-xl shadow-sm p-6 border border-cream-200 hover:shadow-md transition-shadow"
+  >
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm font-medium text-cream-600 mb-1">Дней записано</p>
+        <p class="text-3xl font-display font-bold text-cream-900">{{ daysCompleted() }}</p>
+      </div>
+      <div class="w-12 h-12 bg-brand-100 rounded-full flex items-center justify-center">
+        <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Current Streak Card -->
+  <div
+    class="bg-white rounded-xl shadow-sm p-6 border border-cream-200 hover:shadow-md transition-shadow"
+  >
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm font-medium text-cream-600 mb-1">Текущая серия</p>
+        <p class="text-3xl font-display font-bold text-cream-900">{{ currentStreak() }}</p>
+      </div>
+      <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Completion Percentage Card -->
+  <div
+    class="bg-white rounded-xl shadow-sm p-6 border border-cream-200 hover:shadow-md transition-shadow"
+  >
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm font-medium text-cream-600 mb-1">Выполнено</p>
+        <p class="text-3xl font-display font-bold text-cream-900">{{ completionPercentage() }}%</p>
+      </div>
+      <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+          ></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Quick Action Cards -->
+<div class="mb-6">
+  <h2 class="text-2xl font-display font-bold text-cream-900 mb-4">Быстрые действия</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <!-- Log Today Card -->
+    <a
+      routerLink="/log-daily"
+      class="group bg-gradient-to-br from-brand-500 to-brand-600 rounded-xl shadow-md p-6 text-white hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer"
+    >
+      <div class="flex items-center justify-between mb-4">
+        <div
+          class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 4v16m8-8H4"
+            ></path>
+          </svg>
+        </div>
+        <svg
+          class="w-6 h-6 group-hover:translate-x-1 transition-transform"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"
+          ></path>
+        </svg>
+      </div>
+      <h3 class="text-xl font-bold mb-2">Записать сегодня</h3>
+      <p class="text-white/90 text-sm">
+        Добавьте сегодняшний прогресс: питание, добавки, самочувствие
+      </p>
+    </a>
+
+    <!-- View Progress Card -->
+    <a
+      routerLink="/progress"
+      class="group bg-white rounded-xl shadow-md p-6 border-2 border-cream-200 hover:border-brand-400 hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer"
+    >
+      <div class="flex items-center justify-between mb-4">
+        <div
+          class="w-12 h-12 bg-cream-100 rounded-full flex items-center justify-center group-hover:bg-brand-100 transition-colors"
+        >
+          <svg
+            class="w-6 h-6 text-cream-600 group-hover:text-brand-600 transition-colors"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+            ></path>
+          </svg>
+        </div>
+        <svg
+          class="w-6 h-6 text-cream-400 group-hover:text-brand-600 group-hover:translate-x-1 transition-all"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"
+          ></path>
+        </svg>
+      </div>
+      <h3 class="text-xl font-bold text-cream-900 mb-2">Мой прогресс</h3>
+      <p class="text-cream-600 text-sm">Посмотрите графики и статистику вашего прогресса</p>
+    </a>
+
+    <!-- My Profile Card -->
+    <a
+      routerLink="/profile"
+      class="group bg-white rounded-xl shadow-md p-6 border-2 border-cream-200 hover:border-brand-400 hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer"
+    >
+      <div class="flex items-center justify-between mb-4">
+        <div
+          class="w-12 h-12 bg-cream-100 rounded-full flex items-center justify-center group-hover:bg-brand-100 transition-colors"
+        >
+          <svg
+            class="w-6 h-6 text-cream-600 group-hover:text-brand-600 transition-colors"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+            ></path>
+          </svg>
+        </div>
+        <svg
+          class="w-6 h-6 text-cream-400 group-hover:text-brand-600 group-hover:translate-x-1 transition-all"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"
+          ></path>
+        </svg>
+      </div>
+      <h3 class="text-xl font-bold text-cream-900 mb-2">Мой профиль</h3>
+      <p class="text-cream-600 text-sm">Управляйте своей учетной записью и настройками</p>
+    </a>
+  </div>
+</div>
+
+<!-- Daily Tip Section -->
+<div
+  class="bg-gradient-to-r from-cream-100 to-cream-50 rounded-2xl shadow-sm p-6 border-l-4 border-brand-500"
+>
+  <div class="flex items-start">
+    <div class="flex-shrink-0">
+      <div class="w-10 h-10 bg-brand-100 rounded-full flex items-center justify-center">
+        <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+    <div class="ml-4">
+      <h3 class="text-lg font-bold text-cream-900 mb-1">Совет дня</h3>
+      <p class="text-cream-700">
+        Пейте достаточно воды в течение дня — минимум 8 стаканов. Вода помогает выводить токсины и
+        поддерживает все процессы детоксикации в организме.
+      </p>
+    </div>
+  </div>
+</div>

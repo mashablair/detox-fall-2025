@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { OnboardingComponent } from './features/onboarding/onboarding.component';
 import { authGuard } from './core/guards/auth.guard';
 import { publicGuard } from './core/guards/public.guard';
-import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { HomeComponent } from './features/home/home.component';
 import { DailyLogComponent } from './features/daily-log/daily-log.component';
 import { ProgressComponent } from './features/progress/progress.component';
 import { EditProfileComponent } from './features/profile/edit-profile.component';
@@ -42,7 +42,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        component: DashboardComponent,
+        component: HomeComponent,
       },
       {
         path: 'log-daily',
