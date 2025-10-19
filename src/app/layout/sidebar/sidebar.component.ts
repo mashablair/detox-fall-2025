@@ -1,6 +1,7 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { NgIcon } from '@ng-icons/core';
 
 interface NavItem {
   name: string;
@@ -12,7 +13,7 @@ interface NavItem {
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, NgIcon],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './sidebar.component.html',
   styles: [],
@@ -22,19 +23,19 @@ export class SidebarComponent {
     {
       name: 'Главная',
       route: '/dashboard',
-      icon: 'home.svg',
+      icon: 'heroHome',
       current: true,
     },
     {
       name: 'Дневник',
       route: '/log-daily',
-      icon: 'calendar.svg',
+      icon: 'heroCalendar',
       current: false,
     },
     {
       name: 'Прогресс',
       route: '/progress',
-      icon: 'chart-pie.svg',
+      icon: 'heroChartPie',
       current: false,
     },
   ];

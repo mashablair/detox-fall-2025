@@ -8,21 +8,7 @@
     class="-m-2.5 p-2.5 text-cream-800 hover:text-cream-900 lg:hidden"
   >
     <span class="sr-only">Открыть меню</span>
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.5"
-      data-slot="icon"
-      aria-hidden="true"
-      class="size-6"
-    >
-      <path
-        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
+    <ng-icon name="heroBars3" size="24" style="color: currentColor" />
   </button>
 
   <!-- Separator -->
@@ -53,21 +39,7 @@
     <div class="flex items-center gap-x-4 lg:gap-x-6">
       <button type="button" class="-m-2.5 p-2.5 text-cream-600 hover:text-cream-700">
         <span class="sr-only">Уведомления</span>
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          data-slot="icon"
-          aria-hidden="true"
-          class="size-6"
-        >
-          <path
-            d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
+        <ng-icon name="heroBell" size="24" style="color: currentColor" />
       </button>
 
       <!-- Separator -->
@@ -87,19 +59,12 @@
             <span aria-hidden="true" class="ml-4 text-sm/6 font-semibold text-cream-900">
               {{ getUserFullName() }}
             </span>
-            <svg
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              data-slot="icon"
-              aria-hidden="true"
-              class="ml-2 size-5 text-cream-600"
-            >
-              <path
-                d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
-                clip-rule="evenodd"
-                fill-rule="evenodd"
-              />
-            </svg>
+            <ng-icon
+              name="heroChevronDown"
+              size="20"
+              class="ml-2"
+              style="color: var(--color-cream-600)"
+            />
           </span>
         </button>
         <el-menu
@@ -111,24 +76,24 @@
             (click)="navigateToProfile()"
             class="flex items-center gap-x-3 w-full text-left px-3 py-1.5 text-sm/6 text-cream-900 hover:bg-cream-100 focus:bg-cream-100 focus:outline-hidden"
           >
-            <img src="assets/icons/user-circle.svg" alt="" class="size-5 text-cream-600" />
+            <ng-icon name="heroUserCircle" size="20" style="color: var(--color-cream-600)" />
             Профиль
           </button>
           <button
             (click)="navigateToSettings()"
             class="flex items-center gap-x-3 w-full text-left px-3 py-1.5 text-sm/6 text-cream-900 hover:bg-cream-100 focus:bg-cream-100 focus:outline-hidden"
           >
-            <img src="assets/icons/cog-6-tooth.svg" alt="" class="size-5 text-cream-600" />
+            <ng-icon name="heroCog6Tooth" size="20" style="color: var(--color-cream-600)" />
             Настройки
           </button>
           <button
             (click)="logout()"
             class="flex items-center gap-x-3 w-full text-left px-3 py-1.5 text-sm/6 text-cream-900 hover:bg-cream-100 focus:bg-cream-100 focus:outline-hidden"
           >
-            <img
-              src="assets/icons/arrow-right-start-on-rectangle.svg"
-              alt=""
-              class="size-5 text-cream-600"
+            <ng-icon
+              name="heroArrowRightOnRectangle"
+              size="20"
+              style="color: var(--color-cream-600)"
             />
             Выйти
           </button>

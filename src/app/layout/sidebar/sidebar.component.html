@@ -14,17 +14,7 @@
         >
           <button type="button" command="close" commandfor="sidebar" class="-m-2.5 p-2.5">
             <span class="sr-only">Close sidebar</span>
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              data-slot="icon"
-              aria-hidden="true"
-              class="size-6 text-white"
-            >
-              <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+            <ng-icon name="heroXMark" size="24" style="color: white" />
           </button>
         </div>
 
@@ -45,11 +35,14 @@
                       routerLinkActive="bg-cream-200 text-brand-700"
                       class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-cream-900 hover:bg-cream-100 hover:text-brand-600"
                     >
-                      <img
-                        [src]="'assets/icons/' + item.icon"
-                        [alt]="item.name"
-                        class="size-6 shrink-0 text-cream-600 group-hover:text-brand-600"
-                      />
+                      <span class="text-cream-600 group-hover:text-brand-600">
+                        <ng-icon
+                          [name]="item.icon"
+                          size="24"
+                          class="shrink-0"
+                          style="color: currentColor"
+                        />
+                      </span>
                       {{ item.name }}
                     </a>
                   </li>
@@ -88,11 +81,14 @@
                 [routerLinkActiveOptions]="{ exact: false }"
                 class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-cream-900 hover:bg-cream-100 hover:text-brand-600"
               >
-                <img
-                  [src]="'assets/icons/' + item.icon"
-                  [alt]="item.name"
-                  class="size-6 shrink-0 text-cream-600 group-hover:text-brand-600"
-                />
+                <span class="text-cream-600 group-hover:text-brand-600">
+                  <ng-icon
+                    [name]="item.icon"
+                    size="24"
+                    class="shrink-0"
+                    style="color: currentColor"
+                  />
+                </span>
                 {{ item.name }}
               </a>
             </li>

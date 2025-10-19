@@ -1,13 +1,14 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { NgIcon } from '@ng-icons/core';
 import { AuthService } from '../../core/services/auth.service';
 import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-top-bar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgIcon],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './top-bar.component.html',
   styles: [],

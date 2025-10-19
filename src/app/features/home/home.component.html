@@ -54,14 +54,7 @@
         <p class="text-3xl font-display font-bold text-cream-900">{{ daysCompleted() }}</p>
       </div>
       <div class="w-12 h-12 bg-brand-100 rounded-full flex items-center justify-center">
-        <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-          ></path>
-        </svg>
+        <ng-icon name="heroCheckCircle" size="24" style="color: var(--color-brand-600)" />
       </div>
     </div>
   </div>
@@ -76,14 +69,7 @@
         <p class="text-3xl font-display font-bold text-cream-900">{{ currentStreak() }}</p>
       </div>
       <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
-        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"
-          ></path>
-        </svg>
+        <ng-icon name="heroFire" size="24" style="color: rgb(234 88 12)" />
       </div>
     </div>
   </div>
@@ -98,14 +84,7 @@
         <p class="text-3xl font-display font-bold text-cream-900">{{ completionPercentage() }}%</p>
       </div>
       <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-          ></path>
-        </svg>
+        <ng-icon name="heroArrowTrendingUp" size="24" style="color: rgb(22 163 74)" />
       </div>
     </div>
   </div>
@@ -125,28 +104,14 @@
         <div
           class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors"
         >
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 4v16m8-8H4"
-            ></path>
-          </svg>
+          <ng-icon name="heroPlus" size="24" style="color: white" />
         </div>
-        <svg
-          class="w-6 h-6 group-hover:translate-x-1 transition-transform"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9 5l7 7-7 7"
-          ></path>
-        </svg>
+        <ng-icon
+          name="heroChevronRight"
+          size="24"
+          class="group-hover:translate-x-1 transition-transform"
+          style="color: white"
+        />
       </div>
       <h3 class="text-xl font-bold mb-2">Записать сегодня</h3>
       <p class="text-white/90 text-sm">
@@ -161,35 +126,21 @@
     >
       <div class="flex items-center justify-between mb-4">
         <div
-          class="w-12 h-12 bg-cream-100 rounded-full flex items-center justify-center group-hover:bg-brand-100 transition-colors"
+          class="w-12 h-12 bg-cream-100 rounded-full flex items-center justify-center group-hover:bg-brand-100 transition-colors text-cream-600 group-hover:text-brand-600"
         >
-          <svg
-            class="w-6 h-6 text-cream-600 group-hover:text-brand-600 transition-colors"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-            ></path>
-          </svg>
+          <ng-icon
+            name="heroChartBar"
+            size="24"
+            class="transition-colors"
+            style="color: currentColor"
+          />
         </div>
-        <svg
-          class="w-6 h-6 text-cream-400 group-hover:text-brand-600 group-hover:translate-x-1 transition-all"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9 5l7 7-7 7"
-          ></path>
-        </svg>
+        <ng-icon
+          name="heroChevronRight"
+          size="24"
+          class="text-cream-400 group-hover:text-brand-600 group-hover:translate-x-1 transition-all"
+          style="color: currentColor"
+        />
       </div>
       <h3 class="text-xl font-bold text-cream-900 mb-2">Мой прогресс</h3>
       <p class="text-cream-600 text-sm">Посмотрите графики и статистику вашего прогресса</p>
@@ -202,35 +153,21 @@
     >
       <div class="flex items-center justify-between mb-4">
         <div
-          class="w-12 h-12 bg-cream-100 rounded-full flex items-center justify-center group-hover:bg-brand-100 transition-colors"
+          class="w-12 h-12 bg-cream-100 rounded-full flex items-center justify-center group-hover:bg-brand-100 transition-colors text-cream-600 group-hover:text-brand-600"
         >
-          <svg
-            class="w-6 h-6 text-cream-600 group-hover:text-brand-600 transition-colors"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-            ></path>
-          </svg>
+          <ng-icon
+            name="heroUser"
+            size="24"
+            class="transition-colors"
+            style="color: currentColor"
+          />
         </div>
-        <svg
-          class="w-6 h-6 text-cream-400 group-hover:text-brand-600 group-hover:translate-x-1 transition-all"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9 5l7 7-7 7"
-          ></path>
-        </svg>
+        <ng-icon
+          name="heroChevronRight"
+          size="24"
+          class="text-cream-400 group-hover:text-brand-600 group-hover:translate-x-1 transition-all"
+          style="color: currentColor"
+        />
       </div>
       <h3 class="text-xl font-bold text-cream-900 mb-2">Мой профиль</h3>
       <p class="text-cream-600 text-sm">Управляйте своей учетной записью и настройками</p>
@@ -245,14 +182,7 @@
   <div class="flex items-start">
     <div class="flex-shrink-0">
       <div class="w-10 h-10 bg-brand-100 rounded-full flex items-center justify-center">
-        <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-          ></path>
-        </svg>
+        <ng-icon name="heroLightBulb" size="20" style="color: var(--color-brand-600)" />
       </div>
     </div>
     <div class="ml-4">

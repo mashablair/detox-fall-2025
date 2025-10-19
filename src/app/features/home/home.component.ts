@@ -1,6 +1,7 @@
 import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { NgIcon } from '@ng-icons/core';
 import { UserService } from '../../core/services/user.service';
 import { ProtocolService, ProtocolPhase } from '../../core/services/protocol.service';
 import { DailyLogService } from '../../core/services/daily-log.service';
@@ -8,7 +9,7 @@ import { DailyLogService } from '../../core/services/daily-log.service';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, NgIcon],
   templateUrl: './home.component.html',
   styles: [],
 })
