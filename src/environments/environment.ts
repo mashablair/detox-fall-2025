@@ -9,4 +9,8 @@ export const environment = {
     appId: '1:583972489851:web:35934dc9510e8fe071b0de',
     measurementId: 'G-TEECK2DRMK',
   },
+  cloudinary: {
+    cloudName: 'djnvzdffx', // TODO: Replace with your Cloudinary cloud name
+    folder: 'detox-fall', // Base folder in Cloudinary (products will be in detox-fall/products)
+  },
 };

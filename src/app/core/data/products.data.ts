@@ -1,6 +1,7 @@
 import { Product, ProductCategory, RegionCode } from '../models/products.model';
 
 // ---- Starter dataset (from the attached product slide) ----
+// Note: imageURL contains just the filename. The ImageService will build full Cloudinary URLs.
 export const INITIAL_PRODUCTS: Product[] = [
   {
     id: 'vmg-plus',
@@ -21,7 +22,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     level: 'base',
     region: ['us'],
     type: 'supplement',
-    imageURL: '',
+    imageURL: 'vmg-plus.png',
     source: 'catalog',
   },
   {
@@ -42,7 +43,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     level: 'base',
     region: ['us'],
     type: 'supplement',
-    imageURL: '',
+    imageURL: 'eo-mega.png',
     source: 'catalog',
   },
   {
@@ -63,7 +64,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     level: 'base',
     region: ['us'],
     type: 'supplement',
-    imageURL: '',
+    imageURL: 'pb-restore.png',
     source: 'catalog',
   },
   {
@@ -89,7 +90,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     level: 'advanced',
     region: ['us'],
     type: 'essential_oil',
-    imageURL: '',
+    imageURL: 'revitazen-detox-blend.png',
     source: 'catalog',
   },
   {
@@ -110,7 +111,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     level: 'advanced',
     region: ['us'],
     type: 'supplement',
-    imageURL: '',
+    imageURL: 'revitazen-advanced-organ.png',
     source: 'catalog',
   },
   {
@@ -132,7 +133,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     level: 'advanced',
     region: ['us'],
     type: 'supplement',
-    imageURL: '',
+    imageURL: 'gx-assist.png',
     source: 'catalog',
   },
   {
@@ -157,7 +158,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     },
     region: ['us'],
     type: 'supplement',
-    imageURL: '',
+    imageURL: 'terrazyme.png',
     source: 'catalog',
   },
   {
@@ -178,7 +179,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     level: 'advanced',
     region: ['us'],
     type: 'supplement',
-    imageURL: '',
+    imageURL: 'ddr-prime.png',
     source: 'catalog',
   },
 ];
