@@ -43,6 +43,10 @@ export class TopBarComponent {
     this.router.navigate(['/profile']);
   }
 
+  navigateToSettings(): void {
+    this.router.navigate(['/onboarding']);
+  }
+
   async logout() {
     await this.authService.signOut();
     this.router.navigate(['/']);

@@ -174,16 +174,18 @@ export const INITIAL_PRODUCTS: Product[] = [
   },
 ];
 
-export const OTHER_PRODUCTS: Product[] = [
+const ADD_PRODUCTS = ['castor oil', 'castor oil packs', 'activated charcoal', 'base oils kit'];
+
+export const OTHER_PRODUCTS = [
   {
     id: 'recharge',
     name: 'Recharge',
-    description: 'Electorlytes are used to rehydrate the body',
-    level: 'base',
-    region: ['us', 'eu', 'ru'],
-    type: 'supplement',
-    imageURL: 'binders.png',
-    source: 'catalog',
+    imageURL: 'recharge.png',
+  },
+  {
+    id: 'serenity',
+    name: 'Serenity',
+    imageURL: 'serenity.png',
   },
 ];
 
