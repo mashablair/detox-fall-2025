@@ -22,6 +22,9 @@ import {
   heroBars3,
   heroBell,
   heroChevronDown,
+  heroBookOpen,
+  heroSparkles,
+  heroBeaker,
 } from '@ng-icons/heroicons/outline';
 
 /**
@@ -48,10 +51,13 @@ export const appIcons = {
   heroUserCircle,
   heroBars3,
   heroXMark,
+  heroBookOpen,
 
   // UI Elements
   heroLightBulb,
   heroBell,
   heroCog6Tooth,
   heroArrowRightOnRectangle,
+  heroSparkles,
+  heroBeaker,
 };

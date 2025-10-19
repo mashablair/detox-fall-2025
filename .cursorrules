@@ -14,6 +14,7 @@ This is a 30-day Detox Fall 2025 wellness tracking app for Russian-speaking user
   - **Database**: Firestore (region: nam5 - Iowa)
   - **Image Storage**: Cloudinary (not Firebase Storage)
 - **Charts**: Chart.js with ng2-charts
+- **Icons**: ng-icons with Heroicons (outline style)
 - **Language**: Russian UI (Cyrillic text)
 
 ## Project Structure
@@ -21,10 +22,11 @@ This is a 30-day Detox Fall 2025 wellness tracking app for Russian-speaking user
 ```
 src/app/
 ├── core/
+│   ├── config/          # App configuration (icons.config.ts)
 │   ├── guards/          # Auth guards (authGuard, publicGuard)
 │   ├── models/          # TypeScript interfaces (UserProfile, DailyLog, Product)
 │   ├── services/        # Business logic services
-│   └── data/            # Static data (products catalog)
+│   └── data/            # Static data (products catalog, nutrition data)
 ├── features/            # Feature modules (auth, home, daily-log, profile, etc.)
 ├── layout/              # Shell components (sidebar, top-bar, dashboard-shell)
 └── app.routes.ts        # Route configuration
@@ -202,6 +204,82 @@ service cloud.firestore {
 - Firestore region: `nam5` (us-central1 - Iowa)
 - Auth provider: Email/Password (enabled)
 
+## Icons System (ng-icons)
+
+**Configuration:** Centralized icon management using ng-icons library
+
+**Setup:**
+
+- **Package**: `@ng-icons/core` + `@ng-icons/heroicons`
+- **Icon Set**: Heroicons (outline style only)
+- **Config File**: `core/config/icons.config.ts`
+- **Registration**: Icons registered globally in `app.config.ts` via `provideIcons(appIcons)`
+
+**Icon Configuration File** (`core/config/icons.config.ts`):
+
+```typescript
+import {
+  heroHome,
+  heroCalendar,
+  // ... other icons
+} from '@ng-icons/heroicons/outline';
+
+export const appIcons = {
+  // Organized by category
+  heroHome,
+  heroCalendar,
+  // ... all app icons
+};
+```
+
+**Usage in Components:**
+
+1. **Import NgIcon component:**
+
+```typescript
+import { NgIcon } from '@ng-icons/core';
+
+@Component({
+  imports: [CommonModule, NgIcon, ...],
+})
+```
+
+2. **Use in template:**
+
+```html
+<!-- Static color with CSS variable -->
+<ng-icon name="heroHome" size="24" style="color: var(--color-brand-600)" />
+
+<!-- Static color with RGB -->
+<ng-icon name="heroFire" size="24" style="color: rgb(234 88 12)" />
+
+<!-- Dynamic color with currentColor (inherits from parent) -->
+<span class="text-cream-600 hover:text-brand-600">
+  <ng-icon name="heroUser" size="24" style="color: currentColor" />
+</span>
+```
+
+**Color Styling Best Practices:**
+
+- **IMPORTANT**: Always use inline `style="color: ..."` for icon colors
+- Tailwind color classes (like `class="text-brand-600"`) don't work reliably on ng-icon
+- Use `style="color: currentColor"` to inherit color from parent element (for hover states)
+- Use `style="color: var(--color-brand-600)"` for CSS custom properties
+- Use `style="color: rgb(234 88 12)"` for direct RGB values
+
+**Adding New Icons:**
+
+1. Import icon in `core/config/icons.config.ts`
+2. Add to `appIcons` object (organized by category)
+3. Use in components with `<ng-icon name="iconName" />`
+
+**Icon Categories:**
+
+- Stats & Progress (heroCheckCircle, heroFire, heroArrowTrendingUp)
+- Actions (heroPlus, heroChevronRight, heroChevronDown)
+- Navigation (heroHome, heroCalendar, heroChartPie, heroChartBar, heroUser)
+- UI Elements (heroLightBulb, heroBell, heroCog6Tooth, heroXMark)
+
 ## Cloudinary Configuration
 
 **Service:** Image delivery and transformations (product images, future user uploads)
@@ -342,6 +420,7 @@ Key packages:
 - `@angular/fire` (20.0.1) - Firebase integration
 - `@tailwindcss/postcss` (4.1.13) - Styling
 - `@tailwindplus/elements` (1.0.14) - UI components
+- `@ng-icons/core` + `@ng-icons/heroicons` - Icon system
 - `chart.js` (4.5.0) + `ng2-charts` (8.0.0) - Charts
 - `firebase` (11.10.0) - Firebase SDK
 

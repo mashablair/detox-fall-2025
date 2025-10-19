@@ -1,15 +1,125 @@
-<div class="container mx-auto p-6">
-  <form [formGroup]="logForm" (ngSubmit)="onSubmit()" class="bg-white rounded-lg shadow-xl p-8">
-    <h1 class="text-3xl font-bold text-gray-800 mb-6">Daily Log for {{ today }}</h1>
+<div class="container mx-auto p-6 max-w-6xl">
+  <form [formGroup]="logForm" (ngSubmit)="onSubmit()" class="space-y-6">
+    <!-- Page Header with Nutrition Score -->
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-3xl font-display font-bold text-cream-900 mb-2">
+            Дневник на {{ today }}
+          </h1>
+          <p class="text-cream-700">Отслеживай симптомы, добавки и питание</p>
+        </div>
+        <div class="text-center">
+          <div class="flex items-center justify-center gap-2 mb-1">
+            <ng-icon name="heroSparkles" size="24" style="color: var(--color-brand-600)" />
+            <span class="text-4xl font-bold text-brand-600">{{ nutritionScore() }}</span>
+          </div>
+          <p class="text-sm text-cream-700 font-semibold">Баллы Питания</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nutrition Tracking Section -->
+    <div formGroupName="habits" class="bg-white rounded-lg shadow-lg p-6">
+      <h2 class="text-2xl font-display font-bold text-cream-900 mb-4 flex items-center gap-2">
+        <ng-icon name="heroBeaker" size="28" style="color: var(--color-brand-600)" />
+        Привычки Питания
+      </h2>
+
+      <!-- Boolean Habits Checklist -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-cream-800 mb-3">Ежедневные Привычки</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          @for (habit of booleanHabits; track habit.id) {
+          <label
+            class="flex items-start gap-3 p-3 rounded-lg border border-cream-300 hover:bg-cream-50 cursor-pointer transition-colors"
+          >
+            <input
+              type="checkbox"
+              [formControlName]="habit.id"
+              class="mt-1 h-5 w-5 rounded text-brand-600 focus:ring-brand-500"
+            />
+            <div class="flex-1">
+              <span class="text-cream-900 font-medium">{{ habit.title }}</span>
+              <span class="ml-2 text-xs text-cream-600 font-semibold">({{ habit.weight }} б)</span>
+            </div>
+          </label>
+          }
+        </div>
+      </div>
+
+      <!-- Counter Habits -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-cream-800 mb-3">Счётчики</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          @for (habit of counterHabits; track habit.id) {
+          <div class="p-4 rounded-lg border border-cream-300 bg-cream-50">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-cream-900 font-medium">{{ habit.title }}</span>
+              <span class="text-xs text-cream-600 font-semibold">({{ habit.weight }} б)</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <button
+                type="button"
+                (click)="decrementCounter(habit.id)"
+                class="w-10 h-10 rounded-full bg-cream-300 hover:bg-cream-400 text-cream-900 font-bold text-xl transition-colors"
+              >
+                −
+              </button>
+              <div class="flex-1 text-center">
+                <div class="text-3xl font-bold text-brand-600">{{ getHabitValue(habit.id) }}</div>
+                @if (habit.target) {
+                <div class="text-sm text-cream-600">/ {{ habit.target }}</div>
+                }
+              </div>
+              <button
+                type="button"
+                (click)="incrementCounter(habit.id)"
+                class="w-10 h-10 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-bold text-xl transition-colors"
+              >
+                +
+              </button>
+            </div>
+            <!-- Progress Bar -->
+            @if (habit.target) {
+            <div class="mt-3 bg-cream-300 rounded-full h-2 overflow-hidden">
+              <div
+                class="bg-brand-600 h-2 transition-all duration-300"
+                [style.width.%]="(getHabitValue(habit.id) / habit.target) * 100"
+              ></div>
+            </div>
+            }
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Contextual Tips Card -->
+      @if (contextualTips().length > 0) {
+      <div class="bg-brand-50 border-l-4 border-brand-500 p-4 rounded">
+        <div class="flex items-start gap-3">
+          <ng-icon name="heroLightBulb" size="24" style="color: var(--color-brand-700)" />
+          <div class="flex-1">
+            <h4 class="font-semibold text-brand-900 mb-2">💡 Подсказки для тебя:</h4>
+            <ul class="space-y-2">
+              @for (tip of contextualTips(); track tip.id) {
+              <li class="text-sm text-brand-800">• {{ tip.text }}</li>
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
 
     <!-- Symptoms Section -->
-    <div formGroupName="symptoms" class="mb-8 p-6 bg-gray-50 rounded-lg">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-4">How are you feeling?</h2>
+    <div formGroupName="symptoms" class="bg-white rounded-lg shadow-lg p-6">
+      <h2 class="text-2xl font-display font-bold text-cream-900 mb-4">Как ты себя чувствуешь?</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Digestion Slider -->
         <div>
-          <label for="digestion" class="block text-sm font-medium text-gray-700"
-            >Digestion (1-5)</label
+          <label for="digestion" class="block text-sm font-medium text-cream-800 mb-2"
+            >Пищеварение (1-5)</label
           >
           <input
             id="digestion"
@@ -17,13 +127,17 @@
             min="1"
             max="5"
             formControlName="digestion"
-            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+            class="w-full h-2 bg-cream-200 rounded-lg appearance-none cursor-pointer accent-brand-600"
           />
+          <div class="flex justify-between text-xs text-cream-600 mt-1">
+            <span>Плохо</span>
+            <span>Отлично</span>
+          </div>
         </div>
         <!-- Bloating Slider -->
         <div>
-          <label for="bloating" class="block text-sm font-medium text-gray-700"
-            >Bloating (1-5)</label
+          <label for="bloating" class="block text-sm font-medium text-cream-800 mb-2"
+            >Вздутие (1-5)</label
           >
           <input
             id="bloating"
@@ -31,25 +145,35 @@
             min="1"
             max="5"
             formControlName="bloating"
-            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+            class="w-full h-2 bg-cream-200 rounded-lg appearance-none cursor-pointer accent-brand-600"
           />
+          <div class="flex justify-between text-xs text-cream-600 mt-1">
+            <span>Сильное</span>
+            <span>Нет</span>
+          </div>
         </div>
         <!-- Energy Slider -->
         <div>
-          <label for="energy" class="block text-sm font-medium text-gray-700">Energy (1-5)</label>
+          <label for="energy" class="block text-sm font-medium text-cream-800 mb-2"
+            >Энергия (1-5)</label
+          >
           <input
             id="energy"
             type="range"
             min="1"
             max="5"
             formControlName="energy"
-            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+            class="w-full h-2 bg-cream-200 rounded-lg appearance-none cursor-pointer accent-brand-600"
           />
+          <div class="flex justify-between text-xs text-cream-600 mt-1">
+            <span>Низкая</span>
+            <span>Высокая</span>
+          </div>
         </div>
         <!-- Sleep Slider -->
         <div>
-          <label for="sleep" class="block text-sm font-medium text-gray-700"
-            >Sleep Quality (1-5)</label
+          <label for="sleep" class="block text-sm font-medium text-cream-800 mb-2"
+            >Качество Сна (1-5)</label
           >
           <input
             id="sleep"
@@ -57,13 +181,17 @@
             min="1"
             max="5"
             formControlName="sleep"
-            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+            class="w-full h-2 bg-cream-200 rounded-lg appearance-none cursor-pointer accent-brand-600"
           />
+          <div class="flex justify-between text-xs text-cream-600 mt-1">
+            <span>Плохой</span>
+            <span>Отличный</span>
+          </div>
         </div>
         <!-- Skin/Eye Puffiness Slider -->
         <div class="md:col-span-2">
-          <label for="skinEyePuffiness" class="block text-sm font-medium text-gray-700"
-            >Skin/Eye Puffiness (1-5)</label
+          <label for="skinEyePuffiness" class="block text-sm font-medium text-cream-800 mb-2"
+            >Отёчность Кожи/Глаз (1-5)</label
           >
           <input
             id="skinEyePuffiness"
@@ -71,47 +199,55 @@
             min="1"
             max="5"
             formControlName="skinEyePuffiness"
-            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+            class="w-full h-2 bg-cream-200 rounded-lg appearance-none cursor-pointer accent-brand-600"
           />
+          <div class="flex justify-between text-xs text-cream-600 mt-1">
+            <span>Сильная</span>
+            <span>Нет</span>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Supplements Section -->
-    <div formGroupName="supplements" class="mb-8 p-6 bg-gray-50 rounded-lg">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-4">Supplements Taken</h2>
+    <div formGroupName="supplements" class="bg-white rounded-lg shadow-lg p-6">
+      <h2 class="text-2xl font-display font-bold text-cream-900 mb-4">Добавки</h2>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
         @for (supplement of supplementsForToday; track supplement) {
-        <div>
-          <label class="inline-flex items-center">
-            <input type="checkbox" [formControlName]="supplement" class="rounded text-indigo-600" />
-            <span class="ml-2 text-gray-700">{{ supplement }}</span>
-          </label>
-        </div>
+        <label
+          class="flex items-center gap-2 p-2 rounded-lg border border-cream-300 hover:bg-cream-50 cursor-pointer transition-colors"
+        >
+          <input
+            type="checkbox"
+            [formControlName]="supplement"
+            class="h-5 w-5 rounded text-brand-600 focus:ring-brand-500"
+          />
+          <span class="text-cream-900">{{ supplement }}</span>
+        </label>
         }
       </div>
     </div>
 
     <!-- Notes Section -->
-    <div class="mb-8">
-      <label for="notes" class="block text-sm font-medium text-gray-700">Notes</label>
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <label for="notes" class="block text-lg font-semibold text-cream-900 mb-3">Заметки</label>
       <textarea
         id="notes"
         formControlName="notes"
         rows="4"
-        class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        placeholder="Any additional notes about your meals, feelings, etc."
+        class="w-full px-4 py-3 bg-cream-50 border border-cream-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-cream-900"
+        placeholder="Любые дополнительные заметки о питании, самочувствии и т.д."
       ></textarea>
     </div>
 
     <!-- Submit Button -->
-    <div class="text-center">
+    <div class="text-center pb-6">
       <button
         type="submit"
         [disabled]="!logForm.valid"
-        class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out disabled:bg-gray-400"
+        class="bg-brand-600 hover:bg-brand-700 text-white font-bold py-4 px-8 rounded-lg shadow-lg transition duration-300 ease-in-out disabled:bg-cream-400 disabled:cursor-not-allowed"
       >
-        Save Today's Log
+        Сохранить Дневник
       </button>
     </div>
   </form>

@@ -8,6 +8,7 @@ interface NavItem {
   route: string;
   icon: string;
   current: boolean;
+  separatorBefore?: boolean; // Add visual separator before this item
 }
 
 @Component({
@@ -37,6 +38,13 @@ export class SidebarComponent {
       route: '/progress',
       icon: 'heroChartPie',
       current: false,
+    },
+    {
+      name: 'Гид по Питанию',
+      route: '/nutrition-guide',
+      icon: 'heroBookOpen',
+      current: false,
+      separatorBefore: true,
     },
   ];
 }

@@ -29,6 +29,26 @@
               <li>
                 <ul role="list" class="-mx-2 space-y-1">
                   @for (item of navigation; track item.name) {
+                  <!-- Visual separator -->
+                  @if (item.separatorBefore) {
+                  <li class="my-4 border-t border-cream-500 pt-4">
+                    <a
+                      [routerLink]="item.route"
+                      routerLinkActive="bg-cream-200 text-brand-700"
+                      class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-cream-900 hover:bg-cream-100 hover:text-brand-600"
+                    >
+                      <span class="text-cream-600 group-hover:text-brand-600">
+                        <ng-icon
+                          [name]="item.icon"
+                          size="24"
+                          class="shrink-0"
+                          style="color: currentColor"
+                        />
+                      </span>
+                      {{ item.name }}
+                    </a>
+                  </li>
+                  } @else {
                   <li>
                     <a
                       [routerLink]="item.route"
@@ -46,7 +66,7 @@
                       {{ item.name }}
                     </a>
                   </li>
-                  }
+                  } }
                 </ul>
               </li>
             </ul>
@@ -74,6 +94,27 @@
         <li>
           <ul role="list" class="-mx-2 space-y-1">
             @for (item of navigation; track item.name) {
+            <!-- Visual separator -->
+            @if (item.separatorBefore) {
+            <li class="my-4 border-t border-cream-300/50 pt-4">
+              <a
+                [routerLink]="item.route"
+                routerLinkActive="bg-cream-200 text-brand-700"
+                [routerLinkActiveOptions]="{ exact: false }"
+                class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-cream-900 hover:bg-cream-100 hover:text-brand-600"
+              >
+                <span class="text-cream-600 group-hover:text-brand-600">
+                  <ng-icon
+                    [name]="item.icon"
+                    size="24"
+                    class="shrink-0"
+                    style="color: currentColor"
+                  />
+                </span>
+                {{ item.name }}
+              </a>
+            </li>
+            } @else {
             <li>
               <a
                 [routerLink]="item.route"
@@ -92,7 +133,7 @@
                 {{ item.name }}
               </a>
             </li>
-            }
+            } }
           </ul>
         </li>
       </ul>

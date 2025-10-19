@@ -10,6 +10,7 @@ import { LandingComponent } from './features/landing/landing.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { SignupComponent } from './features/auth/signup/signup.component';
 import { DashboardShellComponent } from './layout/dashboard-shell/dashboard-shell.component';
+import { NutritionGuideComponent } from './features/nutrition-guide/nutrition-guide.component';
 
 export const routes: Routes = [
   // Public routes
@@ -51,6 +52,10 @@ export const routes: Routes = [
       {
         path: 'progress',
         component: ProgressComponent,
+      },
+      {
+        path: 'nutrition-guide',
+        component: NutritionGuideComponent,
       },
       {
         path: 'profile',
