@@ -22,9 +22,9 @@
   --color-cream-400: #e3d5c1;
   --color-cream-500: #d4c1a8;
   --color-cream-600: #b8a68e;
-  --color-cream-700: #8f7d6a;
-  --color-cream-800: #6b5e50;
-  --color-cream-900: #4a3f35;
+  --color-cream-700: #8f7d6a; /* Tertiary icons, disabled states */
+  --color-cream-800: #6b5e50; /* Secondary icons, less prominent */
+  --color-cream-900: #4a3f35; /* Primary icon color - soft alternative to black */
 
   --shadow-soft: 0 10px 30px -10px rgba(122, 155, 93, 0.25);
   /* Fonts */

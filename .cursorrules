@@ -25,7 +25,7 @@ src/app/
 │   ├── models/          # TypeScript interfaces (UserProfile, DailyLog, Product)
 │   ├── services/        # Business logic services
 │   └── data/            # Static data (products catalog)
-├── features/            # Feature modules (auth, dashboard, daily-log, profile, etc.)
+├── features/            # Feature modules (auth, home, daily-log, profile, etc.)
 ├── layout/              # Shell components (sidebar, top-bar, dashboard-shell)
 └── app.routes.ts        # Route configuration
 ```
@@ -134,9 +134,14 @@ service cloud.firestore {
 
 ### Color Palette (Tailwind)
 
-- **Primary Brand**: `brand-*` (orange/amber tones for CTAs)
+- **Primary Brand**: `brand-*` (green/sage tones for CTAs and accents)
 - **Background**: `cream-*` (soft neutral palette - 50, 100, 200, etc.)
 - **Text**: `cream-900` for dark text, `cream-700` for secondary text
+- **Icons**:
+  - Primary icons: `cream-900` (soft alternative to black)
+  - Secondary icons: `cream-800` (less prominent)
+  - Tertiary/disabled: `cream-700` (placeholders, disabled states)
+  - Accent icons: `brand-600` or `brand-700` (featured actions)
 - **Fonts**:
   - Display/headings: `font-display`
   - Body text: `font-body`
@@ -162,11 +167,21 @@ service cloud.firestore {
 /login (public with publicGuard)
 /signup (public with publicGuard)
 /onboarding (authenticated, separate from shell)
-/dashboard (authenticated, inside dashboard-shell)
+/dashboard (authenticated, inside dashboard-shell - uses HomeComponent)
 /log-daily (authenticated, inside dashboard-shell)
 /progress (authenticated, inside dashboard-shell)
 /profile (authenticated, inside dashboard-shell)
 ```
+
+**Home Component** (`/dashboard` route):
+
+- Displays personalized welcome with user's first name
+- Shows progress through 30-day program with visual progress bar
+- Quick stats: days logged, current streak, completion percentage
+- Phase indicator with Russian translations
+- Quick action cards linking to daily log, progress, and profile
+- Daily wellness tip
+- All UI in Russian with cream/brand color palette
 
 ## Navigation Components
 
