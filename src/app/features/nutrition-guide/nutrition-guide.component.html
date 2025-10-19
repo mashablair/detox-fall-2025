@@ -10,40 +10,81 @@
     </p>
   </div>
 
-  <!-- Tabs Navigation -->
-  <div class="border-b border-cream-300 mb-6">
-    <nav class="flex gap-2 overflow-x-auto" aria-label="Tabs">
-      @for (tab of tabs; track tab.id) {
-      <button
-        (click)="setActiveTab(tab.id)"
-        [class.bg-cream-100]="activeTab() === tab.id"
-        [class.text-brand-700]="activeTab() === tab.id"
-        [class.border-brand-600]="activeTab() === tab.id"
-        [class.text-cream-700]="activeTab() !== tab.id"
-        [class.hover:text-cream-900]="activeTab() !== tab.id"
-        class="flex items-center gap-2 px-4 py-3 text-sm font-semibold border-b-2 transition-colors whitespace-nowrap"
-        [class.border-transparent]="activeTab() !== tab.id"
-      >
-        <ng-icon [name]="tab.icon" size="20" style="color: currentColor" />
-        {{ tab.name }}
-      </button>
-      }
-    </nav>
-  </div>
+  <!-- All Content Cards -->
+  <div class="space-y-6">
+    <!-- Principles Card -->
+    <div class="bg-white rounded-lg shadow-lg p-8">
+      <div class="space-y-6">
+        @for (principle of principles; track principle.id) {
+        <div>
+          <h2 class="text-2xl font-display font-bold text-cream-900 mb-4 flex items-center gap-2">
+            <ng-icon name="heroSparkles" size="24" style="color: var(--color-brand-600)" />
+            {{ principle.title }}
+          </h2>
+          <ul class="space-y-3">
+            @for (bullet of principle.bullets; track $index) {
+            <li class="flex gap-3 text-cream-800 leading-relaxed">
+              <ng-icon
+                name="heroCheckCircle"
+                size="20"
+                class="shrink-0 mt-0.5"
+                style="color: var(--color-brand-600)"
+              />
+              <span>{{ bullet }}</span>
+            </li>
+            }
+          </ul>
+        </div>
+        }
+      </div>
+    </div>
 
-  <!-- Tab Content -->
-  <div class="bg-white rounded-lg shadow-lg p-8">
-    <!-- Principles Tab -->
-    @if (activeTab() === 'principles') {
-    <div class="space-y-6">
-      @for (principle of principles; track principle.id) {
-      <div>
+    <!-- Foods to Avoid Card -->
+    <div class="bg-white rounded-lg shadow-lg p-8">
+      <div class="space-y-6">
+        @for (foodGuide of foods; track foodGuide.id) {
+        <div>
+          @if (foodGuide.category === 'avoid') {
+          <h2 class="text-2xl font-display font-bold text-red-700 mb-4 flex items-center gap-2">
+            <ng-icon name="heroXMark" size="24" style="color: rgb(185 28 28)" />
+            Избегайте
+          </h2>
+          }
+          <ul class="space-y-3 mb-4">
+            @for (item of foodGuide.items; track $index) {
+            <li class="flex gap-3 text-cream-800 leading-relaxed">
+              <span
+                class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-100 text-red-700 text-xs font-bold shrink-0 mt-0.5"
+              >
+                ✕
+              </span>
+              <span>{{ item }}</span>
+            </li>
+            }
+          </ul>
+          @if (foodGuide.notes && foodGuide.notes.length > 0) {
+          <div class="bg-red-50 border-l-4 border-red-400 p-4 rounded">
+            @for (note of foodGuide.notes; track $index) {
+            <p class="text-sm text-red-800">
+              <span class="font-semibold">{{ note }}</span>
+            </p>
+            }
+          </div>
+          }
+        </div>
+        }
+      </div>
+    </div>
+
+    <!-- Hydration Card -->
+    <div class="bg-white rounded-lg shadow-lg p-8">
+      <div class="space-y-6">
         <h2 class="text-2xl font-display font-bold text-cream-900 mb-4 flex items-center gap-2">
-          <ng-icon name="heroSparkles" size="24" style="color: var(--color-brand-600)" />
-          {{ principle.title }}
+          <ng-icon name="heroBeaker" size="24" style="color: var(--color-brand-600)" />
+          Гидратация — Основа Детокса
         </h2>
         <ul class="space-y-3">
-          @for (bullet of principle.bullets; track $index) {
+          @for (item of hydration.items; track $index) {
           <li class="flex gap-3 text-cream-800 leading-relaxed">
             <ng-icon
               name="heroCheckCircle"
@@ -51,108 +92,46 @@
               class="shrink-0 mt-0.5"
               style="color: var(--color-brand-600)"
             />
-            <span>{{ bullet }}</span>
-          </li>
-          }
-        </ul>
-      </div>
-      }
-    </div>
-    }
-
-    <!-- Foods Tab -->
-    @if (activeTab() === 'foods') {
-    <div class="space-y-6">
-      @for (foodGuide of foods; track foodGuide.id) {
-      <div>
-        @if (foodGuide.category === 'avoid') {
-        <h2 class="text-2xl font-display font-bold text-red-700 mb-4 flex items-center gap-2">
-          <ng-icon name="heroXMark" size="24" style="color: rgb(185 28 28)" />
-          Избегайте
-        </h2>
-        }
-        <ul class="space-y-3 mb-4">
-          @for (item of foodGuide.items; track $index) {
-          <li class="flex gap-3 text-cream-800 leading-relaxed">
-            <span
-              class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-100 text-red-700 text-xs font-bold shrink-0 mt-0.5"
-            >
-              ✕
-            </span>
             <span>{{ item }}</span>
           </li>
           }
         </ul>
-        @if (foodGuide.notes && foodGuide.notes.length > 0) {
-        <div class="bg-red-50 border-l-4 border-red-400 p-4 rounded">
-          @for (note of foodGuide.notes; track $index) {
-          <p class="text-sm text-red-800">
-            <span class="font-semibold">{{ note }}</span>
+        <div class="bg-brand-50 border-l-4 border-brand-500 p-4 rounded mt-6">
+          <p class="text-sm text-brand-900">
+            <span class="font-semibold">💡 Совет:</span> Начинай каждое утро с тёплой воды + капля
+            лимонного или грейпфрутового эфирного масла для запуска метаболизма.
           </p>
-          }
         </div>
-        }
       </div>
-      }
     </div>
-    }
 
-    <!-- Hydration Tab -->
-    @if (activeTab() === 'hydration') {
-    <div class="space-y-6">
-      <h2 class="text-2xl font-display font-bold text-cream-900 mb-4 flex items-center gap-2">
-        <ng-icon name="heroBeaker" size="24" style="color: var(--color-brand-600)" />
-        Гидратация — Основа Детокса
-      </h2>
-      <ul class="space-y-3">
-        @for (item of hydration.items; track $index) {
-        <li class="flex gap-3 text-cream-800 leading-relaxed">
-          <ng-icon
-            name="heroCheckCircle"
-            size="20"
-            class="shrink-0 mt-0.5"
-            style="color: var(--color-brand-600)"
-          />
-          <span>{{ item }}</span>
-        </li>
-        }
-      </ul>
-      <div class="bg-brand-50 border-l-4 border-brand-500 p-4 rounded mt-6">
-        <p class="text-sm text-brand-900">
-          <span class="font-semibold">💡 Совет:</span> Начинай каждое утро с тёплой воды + капля
-          лимонного или грейпфрутового эфирного масла для запуска метаболизма.
-        </p>
+    <!-- Practices Card -->
+    <div class="bg-white rounded-lg shadow-lg p-8">
+      <div class="space-y-6">
+        <h2 class="text-2xl font-display font-bold text-cream-900 mb-4 flex items-center gap-2">
+          <ng-icon name="heroLightBulb" size="24" style="color: var(--color-brand-600)" />
+          Поддерживающие Практики
+        </h2>
+        <ul class="space-y-3">
+          @for (item of practices.items; track $index) {
+          <li class="flex gap-3 text-cream-800 leading-relaxed">
+            <ng-icon
+              name="heroCheckCircle"
+              size="20"
+              class="shrink-0 mt-0.5"
+              style="color: var(--color-brand-600)"
+            />
+            <span>{{ item }}</span>
+          </li>
+          }
+        </ul>
+        <div class="bg-brand-50 border-l-4 border-brand-500 p-4 rounded mt-6">
+          <p class="text-sm text-brand-900">
+            <span class="font-semibold">🍂 Осенние Продукты:</span> Тыква, свёкла, яблоки, гранат,
+            капуста, морковь — идеальны для детокса и восстановления.
+          </p>
+        </div>
       </div>
     </div>
-    }
-
-    <!-- Practices Tab -->
-    @if (activeTab() === 'practices') {
-    <div class="space-y-6">
-      <h2 class="text-2xl font-display font-bold text-cream-900 mb-4 flex items-center gap-2">
-        <ng-icon name="heroLightBulb" size="24" style="color: var(--color-brand-600)" />
-        Поддерживающие Практики
-      </h2>
-      <ul class="space-y-3">
-        @for (item of practices.items; track $index) {
-        <li class="flex gap-3 text-cream-800 leading-relaxed">
-          <ng-icon
-            name="heroCheckCircle"
-            size="20"
-            class="shrink-0 mt-0.5"
-            style="color: var(--color-brand-600)"
-          />
-          <span>{{ item }}</span>
-        </li>
-        }
-      </ul>
-      <div class="bg-brand-50 border-l-4 border-brand-500 p-4 rounded mt-6">
-        <p class="text-sm text-brand-900">
-          <span class="font-semibold">🍂 Осенние Продукты:</span> Тыква, свёкла, яблоки, гранат,
-          капуста, морковь — идеальны для детокса и восстановления.
-        </p>
-      </div>
-    </div>
-    }
   </div>
 </div>

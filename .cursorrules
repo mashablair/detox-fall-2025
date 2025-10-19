@@ -69,6 +69,62 @@ src/app/
   - Helper functions: `byRegion()`
   - Products stored as static data (no database needed for core catalog)
 
+### Nutrition Tracking System
+
+**Architecture:** Habit-based scoring with contextual tips
+
+- **Models** (`core/models/nutrition.model.ts`):
+  - `HabitDef` - Defines trackable habits (boolean or counter type)
+  - `TipRule` - Contextual tips triggered by user behavior
+  - `NutritionPrinciple`, `FoodGuideline`, `HydrationGuideline`, `PracticeGuideline` - Reference data
+  - `MealLog`, `DayLog`, `NutritionScore` - Future tracking models
+- **Data** (`core/data/nutrition.data.ts`):
+  - `PRINCIPLES` - Core nutrition principles for detox
+  - `FOODS` - Foods to avoid during detox
+  - `HYDRATION` - Water and herbal tea guidelines
+  - `PRACTICES` - Supportive practices (IF, mindful eating, seasonal foods)
+  - `HABITS` - 13 trackable habits (9 daily + 4 weekly) with weights for scoring
+  - `TIPS` - 6 contextual tips that trigger based on missing/incomplete habits
+
+**Habits System:**
+
+```typescript
+interface HabitDef {
+  id: string; // kebab-case habit ID
+  title: string; // Russian display title
+  period: 'daily' | 'weekly';
+  type: 'boolean' | 'counter'; // checkbox or numeric counter
+  target?: number; // for counter types (e.g., 5 colors, 8 glasses)
+  weight: number; // scoring weight (6-16 points)
+}
+```
+
+**Daily Habits (9 total, 94 points):**
+
+1. ≥80% натуральных продуктов (10 points)
+2. Цветная тарелка: ≥5 цветов (10 points, counter)
+3. Клетчатка 25–30 г (12 points)
+4. Белок в каждом приёме пищи (12 points)
+5. Полезные жиры в рационе (8 points)
+6. Гидратация: 8–10 стаканов (10 points, counter)
+7. Без сахара и UPF (14 points)
+8. 12–14 ч ночное окно (10 points)
+9. Осознанное питание (8 points)
+
+**Scoring Algorithm:**
+
+- Boolean habits: 100% weight if checked, 0% if unchecked
+- Counter habits: Proportional weight based on progress (value/target \* weight)
+- Total score = (sum of earned weights / sum of all weights) \* 100
+- Score displayed as 0-100 integer
+
+**Contextual Tips:**
+
+- Tips automatically display based on missing habits
+- Two trigger types: `missingHabit` (boolean not checked) or `counterBelow` (counter below threshold)
+- Max 3 tips shown at once
+- Real-time updates as user checks habits
+
 **Product Schema:**
 
 ```typescript
@@ -172,6 +228,7 @@ service cloud.firestore {
 /dashboard (authenticated, inside dashboard-shell - uses HomeComponent)
 /log-daily (authenticated, inside dashboard-shell)
 /progress (authenticated, inside dashboard-shell)
+/nutrition-guide (authenticated, inside dashboard-shell)
 /profile (authenticated, inside dashboard-shell)
 ```
 
@@ -185,11 +242,41 @@ service cloud.firestore {
 - Daily wellness tip
 - All UI in Russian with cream/brand color palette
 
+**Nutrition Guide Component** (`/nutrition-guide` route):
+
+- Reference page with four scrolling cards (no tabs)
+- **Principles Card**: Core nutrition principles with checkmark bullets
+- **Foods to Avoid Card**: List with red X icons and warning callout
+- **Hydration Card**: Water and herbal tea guidelines with tip callout
+- **Practices Card**: IF, mindful eating, seasonal foods with tip callout
+- All data sourced from `nutrition.data.ts`
+- Beautiful icons (heroSparkles, heroXMark, heroBeaker, heroLightBulb, heroCheckCircle)
+- Cream/brand color palette with red accents for "avoid" section
+
+**Daily Log Component** (`/log-daily` route - Enhanced):
+
+- **Header**: Shows live nutrition score (0-100) with sparkles icon
+- **Nutrition Habits Section**:
+  - 7 boolean habit checkboxes with weights displayed
+  - 2 counter habits (colors, water) with +/- buttons and progress bars
+  - Visual feedback: counters show value/target and progress bar
+- **Contextual Tips Card**: Max 3 tips displayed based on missing habits (auto-updates)
+- **Symptoms Section**: 5 sliders for digestion, bloating, energy, sleep, puffiness
+- **Supplements Section**: Checkboxes for protocol supplements
+- **Notes Section**: Free-form text area
+- Real-time score calculation as user interacts with habits
+- All form data saved to DailyLogService (local storage for now)
+
 ## Navigation Components
 
-- **Sidebar**: Logo (links to /), navigation items (dashboard, daily log, progress, profile)
+- **Sidebar**: Logo (links to /), navigation items with visual separator
+  - Main section: Dashboard, Daily Log, Progress
+  - Separator: Horizontal line with `border-cream-500`
+  - Reference section: Nutrition Guide (with heroBookOpen icon)
+  - Profile link in top-bar dropdown
 - **Top-bar**: User dropdown with profile link and logout
 - **Logo behavior**: Clicking logo navigates to landing page (allowed for authenticated users)
+- **Active state**: Cream-200 background, brand-700 text for current route
 
 ## User Interface Language
 
@@ -277,8 +364,8 @@ import { NgIcon } from '@ng-icons/core';
 
 - Stats & Progress (heroCheckCircle, heroFire, heroArrowTrendingUp)
 - Actions (heroPlus, heroChevronRight, heroChevronDown)
-- Navigation (heroHome, heroCalendar, heroChartPie, heroChartBar, heroUser)
-- UI Elements (heroLightBulb, heroBell, heroCog6Tooth, heroXMark)
+- Navigation (heroHome, heroCalendar, heroChartPie, heroChartBar, heroUser, heroBookOpen)
+- UI Elements (heroLightBulb, heroBell, heroCog6Tooth, heroXMark, heroSparkles, heroBeaker)
 
 ## Cloudinary Configuration
 
@@ -405,13 +492,32 @@ export class ComponentNameComponent {
 - **Form Validation**: Email not required in validation if it's disabled
 - **Navigation**: Landing page accessible to everyone (modified publicGuard)
 
+## Implemented Features
+
+✅ **Nutrition Tracking**:
+
+- Nutrition Guide reference page with principles, foods, hydration, practices
+- Enhanced Daily Log with habit tracking (9 daily boolean + 2 daily counters)
+- Real-time nutrition scoring (0-100 based on weighted habits)
+- Contextual tips that appear based on user's missing/incomplete habits
+- Beautiful UI with counters (+/- buttons, progress bars)
+
+✅ **Daily Logging**:
+
+- Symptom tracking (5 sliders: digestion, bloating, energy, sleep, puffiness)
+- Supplement checkboxes (protocol-based)
+- Notes section
+- Local storage persistence
+
 ## Future Features to Consider
 
-- Daily log tracking (meals, supplements, symptoms)
-- Progress charts and visualization
-- Product recommendations with Cloudinary images
-- Weekly reports and insights
-- Community features or coach integration
+- **Meal Journal**: Time-stamped meals with tags (protein, veggies, fiber, etc.)
+- **Weekly Habits**: Track 4 weekly goals (14 plants, 3 herbal teas, IF 3+ days, 1 seasonal dish)
+- **Progress Charts**: Nutrition score trends, habit heatmap, weekly breakdown
+- **Firestore Integration**: Save daily logs to Firestore (currently local storage)
+- **Product Recommendations**: Link supplements to habits with Cloudinary images
+- **Weekly Reports**: PDF/email summaries with insights
+- **Community Features**: Coach integration or group support
 
 ## Dependencies
 
