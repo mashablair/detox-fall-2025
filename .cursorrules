@@ -59,12 +59,12 @@ src/app/
 
 - **Models** (`core/models/products.model.ts`):
   - `Product` interface - complete product schema
-  - Type definitions: `RegionCode`, `ProductType`, `ProductCategory`, `ProgramLevel`
+  - Type definitions: `RegionCode`, `ProductType`, `ProgramLevel`
   - `TakeInstruction` interface - structured dosage/timing info
   - `RegionVariant` interface - regional names/substitutes
 - **Data** (`core/data/products.data.ts`):
   - `INITIAL_PRODUCTS` array - 8 core catalog products
-  - Helper functions: `byCategory()`, `byRegion()`
+  - Helper functions: `byRegion()`
   - Products stored as static data (no database needed for core catalog)
 
 **Product Schema:**
@@ -76,7 +76,6 @@ interface Product {
   description?: string;
   takes?: TakeInstruction[]; // dosage/timing instructions
   altName?: string;
-  category: ProductCategory; // core | oils_basic | oils_advanced | support
   level?: ProgramLevel; // base | advanced
   regions?: Partial<Record<RegionCode, RegionVariant>>;
   region?: RegionCode[]; // availability by region
