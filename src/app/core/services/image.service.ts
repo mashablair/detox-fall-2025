@@ -55,16 +55,17 @@ export class ImageService {
       transformations.push(`f_${options.format}`);
     }
 
-    // Add smart defaults
+    // Add smart defaults for product images
+    // Use 'fit' mode to show entire product without cropping
     if (transformations.length > 0) {
-      transformations.push('c_fill'); // crop to fill dimensions
+      transformations.push('c_fit'); // fit entire image within dimensions without cropping
     }
 
     const transformString = transformations.length > 0 ? `${transformations.join(',')}/` : '';
 
     // Build full Cloudinary URL
     const { cloudName, folder } = environment.cloudinary;
-    return `https://res.cloudinary.com/${cloudName}/image/upload/${transformString}${folder}/${filename}`;
+    return `https://res.cloudinary.com/${cloudName}/image/upload/${transformString}${folder}/products/${filename}`;
   }
 
   /**

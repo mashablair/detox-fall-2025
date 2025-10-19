@@ -7,12 +7,6 @@ export type RegionCode = 'us' | 'eu' | 'ru';
 
 export type ProductType = 'supplement' | 'essential_oil';
 
-export type ProductCategory =
-  | 'core' // must-have to start the program
-  | 'oils_basic' // basic oils kit
-  | 'oils_advanced' // add-ons for advanced version
-  | 'support'; // misc support items (caps, castor oil, binders)
-
 export type ProgramLevel = 'base' | 'advanced';
 
 // How to take a product (human-readable + structured bits for future logic)
@@ -36,7 +30,6 @@ export interface Product {
   description?: string;
   takes?: TakeInstruction[]; // one or more instructions (e.g., AM vs PM)
   altName?: string; // quick alt label shown next to name (global)
-  category: ProductCategory;
   level?: ProgramLevel; // base/advanced flag to unlock gating rules
   regions?: Partial<Record<RegionCode, RegionVariant>>; // per-region metadata
   region?: RegionCode[]; // where this exact SKU exists (for filtering)

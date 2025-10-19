@@ -1,6 +1,5 @@
-import { Product, ProductCategory, RegionCode } from '../models/products.model';
+import { Product, RegionCode } from '../models/products.model';
 
-// ---- Starter dataset (from the attached product slide) ----
 // Note: imageURL contains just the filename. The ImageService will build full Cloudinary URLs.
 export const INITIAL_PRODUCTS: Product[] = [
   {
@@ -17,10 +16,8 @@ export const INITIAL_PRODUCTS: Product[] = [
         notes: 'Mix in water.',
       },
     ],
-    altName: '',
-    category: 'core',
     level: 'base',
-    region: ['us'],
+    region: ['us', 'eu', 'ru'],
     type: 'supplement',
     imageURL: 'vmg-plus.png',
     source: 'catalog',
@@ -39,9 +36,8 @@ export const INITIAL_PRODUCTS: Product[] = [
         notes: 'Typically AM and PM.',
       },
     ],
-    category: 'core',
     level: 'base',
-    region: ['us'],
+    region: ['us', 'eu', 'ru'],
     type: 'supplement',
     imageURL: 'eo-mega.png',
     source: 'catalog',
@@ -60,9 +56,8 @@ export const INITIAL_PRODUCTS: Product[] = [
         notes: 'Take with AM meal. Do not take at the same time as GX Assist.',
       },
     ],
-    category: 'core',
     level: 'base',
-    region: ['us'],
+    region: ['us', 'eu'],
     type: 'supplement',
     imageURL: 'pb-restore.png',
     source: 'catalog',
@@ -86,8 +81,7 @@ export const INITIAL_PRODUCTS: Product[] = [
         notes: 'Apply over abdomen or liver; use with castor oil for enhanced topical support.',
       },
     ],
-    category: 'oils_advanced',
-    level: 'advanced',
+    level: 'base',
     region: ['us'],
     type: 'essential_oil',
     imageURL: 'revitazen-detox-blend.png',
@@ -107,8 +101,7 @@ export const INITIAL_PRODUCTS: Product[] = [
         notes: 'AM meal; PM capsule as needed.',
       },
     ],
-    category: 'core',
-    level: 'advanced',
+    level: 'base',
     region: ['us'],
     type: 'supplement',
     imageURL: 'revitazen-advanced-organ.png',
@@ -129,9 +122,8 @@ export const INITIAL_PRODUCTS: Product[] = [
           'Take with noon and PM meals for a total of 3 softgels/day. Increase fiber intake; separate from PB Restore.',
       },
     ],
-    category: 'core',
     level: 'advanced',
-    region: ['us'],
+    region: ['us', 'eu', 'ru'],
     type: 'supplement',
     imageURL: 'gx-assist.png',
     source: 'catalog',
@@ -150,13 +142,12 @@ export const INITIAL_PRODUCTS: Product[] = [
         notes: 'AM and PM on empty stomach; 1–2 capsules with meals as needed.',
       },
     ],
-    category: 'core',
     level: 'base',
     regions: {
       ru: { substitutes: ['пищеварительные ферменты', 'папаин', 'бромелайн'] },
       eu: { substitutes: ['bromelain', 'papain', 'broad‑spectrum digestive enzymes'] },
     },
-    region: ['us'],
+    region: ['us', 'eu'],
     type: 'supplement',
     imageURL: 'terrazyme.png',
     source: 'catalog',
@@ -175,18 +166,27 @@ export const INITIAL_PRODUCTS: Product[] = [
         notes: 'Morning and evening meals.',
       },
     ],
-    category: 'core',
     level: 'advanced',
-    region: ['us'],
+    region: ['us', 'eu', 'ru'],
     type: 'supplement',
     imageURL: 'ddr-prime.png',
     source: 'catalog',
   },
 ];
 
-// ---- Helpers (optional) ----
-export const byCategory = (category: ProductCategory) =>
-  INITIAL_PRODUCTS.filter((p) => p.category === category);
+export const OTHER_PRODUCTS: Product[] = [
+  {
+    id: 'recharge',
+    name: 'Recharge',
+    description: 'Electorlytes are used to rehydrate the body',
+    level: 'base',
+    region: ['us', 'eu', 'ru'],
+    type: 'supplement',
+    imageURL: 'binders.png',
+    source: 'catalog',
+  },
+];
 
+// ---- Helpers (optional) ----
 export const byRegion = (region: RegionCode) =>
   INITIAL_PRODUCTS.filter((p) => !p.region || p.region.includes(region));

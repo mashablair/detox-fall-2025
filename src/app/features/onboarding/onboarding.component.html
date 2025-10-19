@@ -47,17 +47,20 @@
         </p>
       </div>
 
-      <!-- Decorative Divider -->
+      <!-- Step Progress Indicator -->
       <div class="relative my-8">
         <div class="absolute inset-0 flex items-center">
           <div class="w-full border-t border-brand-300/30"></div>
         </div>
         <div class="relative flex justify-center text-sm">
-          <span class="px-4 bg-white text-cream-600 font-body">Шаг 1 из 1</span>
+          <span class="px-4 bg-white text-cream-600 font-body"
+            >Шаг {{ currentStep() }} из {{ totalSteps }}</span
+          >
         </div>
       </div>
 
-      <!-- Form Content -->
+      <!-- Step 1: Start Date -->
+      @if (currentStep() === 1) {
       <div class="space-y-6">
         <!-- Info Box -->
         <div class="bg-brand-50/50 rounded-xl p-6 border border-brand-300/40">
@@ -151,10 +154,10 @@
 
         <!-- CTA Button -->
         <button
-          (click)="saveStartDate(startDateInput.value)"
+          (click)="proceedToStep2(startDateInput.value)"
           class="w-full flex justify-center items-center py-4 px-6 border border-transparent rounded-lg shadow-soft text-base font-semibold text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200"
         >
-          Начать мой путь к здоровью
+          Продолжить
           <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               stroke-linecap="round"
@@ -170,6 +173,52 @@
           Вы сможете изменить дату начала в настройках позже
         </p>
       </div>
+      }
+
+      <!-- Step 2: Products Checklist -->
+      @if (currentStep() === 2) {
+      <div class="space-y-6">
+        <!-- Products Checklist Component -->
+        <app-products-checklist></app-products-checklist>
+
+        <!-- Navigation Buttons -->
+        <div class="flex gap-4">
+          <button
+            (click)="goToPreviousStep()"
+            class="flex-1 flex justify-center items-center py-4 px-6 border-2 border-cream-400 rounded-lg text-base font-semibold text-cream-700 bg-white hover:bg-cream-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cream-500 transition-colors duration-200"
+          >
+            <svg class="mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              ></path>
+            </svg>
+            Назад
+          </button>
+          <button
+            (click)="completeOnboarding()"
+            class="flex-1 flex justify-center items-center py-4 px-6 border border-transparent rounded-lg shadow-soft text-base font-semibold text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors duration-200"
+          >
+            Начать программу
+            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              ></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Help Text -->
+        <p class="text-center text-sm text-cream-600 font-body">
+          Вы можете начать программу, даже если ещё не все добавки заказаны
+        </p>
+      </div>
+      }
     </div>
 
     <!-- Footer Note -->
