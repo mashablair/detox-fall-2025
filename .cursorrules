@@ -43,10 +43,11 @@ src/app/
 
 ### User Profile
 
-- **Model**: `UserProfile` interface with firstName, lastName, country, email, startDate
+- **Model**: `UserProfile` interface with firstName, lastName, country, email, startDate, products
 - **Storage**: Firestore collection `userProfiles` (document ID = Firebase Auth UID)
 - **Service**: `UserService` handles all profile CRUD operations
 - **Auto-sync**: Profile loads on login, clears on logout via callback pattern
+- **Products Field**: Array of product IDs user selected in onboarding (e.g., ['vmg-plus', 'eo-mega'])
 
 ### Data Services
 
@@ -68,6 +69,55 @@ src/app/
   - `INITIAL_PRODUCTS` array - 8 core catalog products
   - Helper functions: `byRegion()`
   - Products stored as static data (no database needed for core catalog)
+
+### Protocol System (30-Day Detox)
+
+**Architecture:** 4-week program with phase-based supplement schedules
+
+- **Models** (`core/models/protocol.model.ts`):
+
+  - `SupplementTiming` - Type: 'morning' | 'lunch' | 'dinner'
+  - `ProtocolSupplement` - Individual supplement entry (productId, timing, amount, notes)
+  - `WeekSchedule` - Weekly supplement schedule with locked status
+  - `ProtocolPhase` - Phase metadata (week, title, subtitle, description, topics in Russian)
+
+- **Data Files**:
+
+  - `protocol-phases.data.ts` - 4 weeks of phase descriptions in Russian
+  - `protocol-schedule.data.ts` - Weekly supplement schedules (Week 1 complete, Weeks 2-4 locked/placeholder)
+
+- **ProtocolService** (`core/services/protocol.service.ts`):
+  - `getDayNumber(date)` - Returns current day 1-30
+  - `getWeekNumber(date)` - Returns current week 1-4
+  - `getCurrentPhase(date)` - Returns ProtocolPhase with Russian metadata
+  - `getSupplementsByTiming(date)` - Returns supplements grouped by morning/lunch/dinner
+  - `isCurrentWeekLocked(date)` - Checks if schedule is available
+  - **Filtering**: Only returns supplements user selected in onboarding
+
+**4-Week Program Structure:**
+
+- **Week 1** (Days 1-7): "Запуск систем детокса и молодости" - Complete schedule
+- **Week 2** (Days 8-14): "Пищеварение и митохондрии" - Placeholder (coming soon)
+- **Week 3** (Days 15-21): "Лимфа, иммунитет и теломеры" - Placeholder (coming soon)
+- **Week 4** (Days 22-30): "Жизнь после детокса" - Placeholder (coming soon)
+
+**Protocol Data Pattern:**
+
+```typescript
+{
+  week: 1,
+  locked: false,
+  supplements: [
+    {
+      productId: 'vmg-plus',
+      timing: 'morning',
+      amount: '1 порция',
+      notes: 'Смешать с водой'
+    },
+    // ... more supplements
+  ]
+}
+```
 
 ### Nutrition Tracking System
 
@@ -171,7 +221,8 @@ Firestore Database (nam5 region)
 │       ├── lastName: string
 │       ├── country: string
 │       ├── email: string
-│       └── startDate: string (ISO 8601: YYYY-MM-DD)
+│       ├── startDate: string (ISO 8601: YYYY-MM-DD)
+│       └── products: string[] (product IDs: ['vmg-plus', 'eo-mega', 'pb-restore', ...])
 └── (future collections for daily logs, etc.)
 ```
 
@@ -262,7 +313,13 @@ service cloud.firestore {
   - Visual feedback: counters show value/target and progress bar
 - **Contextual Tips Card**: Max 3 tips displayed based on missing habits (auto-updates)
 - **Symptoms Section**: 5 sliders for digestion, bloating, energy, sleep, puffiness
-- **Supplements Section**: Checkboxes for protocol supplements
+- **Supplements Section**: Protocol-based, grouped by timing
+  - **Morning** (☀️): Supplements to take with breakfast
+  - **Lunch** (🔥): Supplements to take with lunch
+  - **Dinner** (🌙): Supplements to take with dinner
+  - Each supplement shows: Product image, name, dosage, notes
+  - Only displays products user selected in onboarding
+  - Empty state for locked weeks
 - **Notes Section**: Free-form text area
 - Real-time score calculation as user interacts with habits
 - All form data saved to DailyLogService (local storage for now)
@@ -365,7 +422,7 @@ import { NgIcon } from '@ng-icons/core';
 - Stats & Progress (heroCheckCircle, heroFire, heroArrowTrendingUp)
 - Actions (heroPlus, heroChevronRight, heroChevronDown)
 - Navigation (heroHome, heroCalendar, heroChartPie, heroChartBar, heroUser, heroBookOpen)
-- UI Elements (heroLightBulb, heroBell, heroCog6Tooth, heroXMark, heroSparkles, heroBeaker)
+- UI Elements (heroLightBulb, heroBell, heroCog6Tooth, heroXMark, heroSparkles, heroBeaker, heroSun, heroMoon, heroInformationCircle)
 
 ## Cloudinary Configuration
 
@@ -425,6 +482,40 @@ detox-fall/
 - User-uploaded images (future) will use full URLs, service passes them through
 - Always use ImageService, never hardcode Cloudinary URLs
 
+## Chart.js Configuration
+
+**Important:** Chart.js v3+ requires explicit component registration
+
+```typescript
+import {
+  Chart,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  CategoryScale,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+} from 'chart.js';
+
+// Register all Chart.js components before using
+Chart.register(
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  CategoryScale,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+);
+```
+
+**Required for:** Progress component with ng2-charts
+
 ## Code Style Preferences
 
 1. **TypeScript**: Use strict typing, interfaces for models
@@ -433,6 +524,7 @@ detox-fall/
 4. **Console Logging**: Use console.log/error for debugging, include descriptive messages
 5. **Comments**: Add JSDoc comments for service methods
 6. **File Naming**: kebab-case for files (e.g., `user.service.ts`, `edit-profile.component.ts`)
+7. **PrettierIgnores**: Use `<!-- prettier-ignore -->` for Angular control flow blocks (`@if`, `@for`, `@let`) when Prettier has parsing issues
 
 ## Common Patterns
 
@@ -486,13 +578,33 @@ export class ComponentNameComponent {
 
 ## Important Notes
 
-- **No localStorage**: User profiles stored in Firestore, not localStorage
+- **No localStorage for profiles**: User profiles stored in Firestore, not localStorage
 - **Auth Timing**: Pass userId directly to avoid timing issues with getCurrentUser()
 - **Disabled Fields**: Email field in profile is disabled (tied to Firebase Auth)
 - **Form Validation**: Email not required in validation if it's disabled
 - **Navigation**: Landing page accessible to everyone (modified publicGuard)
+- **Protocol Data**: Static TypeScript files, not Firestore (easier to update schedules)
+- **Product Filtering**: Daily log only shows supplements user selected in onboarding
+- **Week Schedules**: Weeks 2-4 are locked placeholders - add schedules to `protocol-schedule.data.ts` when ready
+- **Form Control Keys**: Supplements use `productId-timing-index` pattern for unique form control names
 
 ## Implemented Features
+
+✅ **Protocol System (30-Day Program)**:
+
+- 4-week program structure with phase descriptions
+- Protocol schedules stored in static TypeScript files
+- Week 1 complete with timing-based supplement schedule
+- Weeks 2-4 placeholder structure (locked until schedules added)
+- ProtocolService calculates current day/week and filters by user's products
+- Phase metadata with Russian titles and descriptions
+
+✅ **User Onboarding**:
+
+- Product selection by region (US, EU, Russia)
+- Products grouped by level (base/advanced)
+- Selected products saved to Firestore userProfiles
+- Region auto-detection based on user's country
 
 ✅ **Nutrition Tracking**:
 
@@ -505,7 +617,11 @@ export class ComponentNameComponent {
 ✅ **Daily Logging**:
 
 - Symptom tracking (5 sliders: digestion, bloating, energy, sleep, puffiness)
-- Supplement checkboxes (protocol-based)
+- Supplement tracking by timing (Morning, Lunch, Dinner)
+  - Shows product images from Cloudinary
+  - Displays dosage and notes
+  - Only shows user's selected products
+  - Visual timing indicators (sun, fire, moon icons)
 - Notes section
 - Local storage persistence
 
