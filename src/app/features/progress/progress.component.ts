@@ -2,9 +2,36 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BaseChartDirective } from 'ng2-charts';
-import { ChartConfiguration, ChartOptions, ChartType } from 'chart.js';
+import {
+  Chart,
+  ChartConfiguration,
+  ChartOptions,
+  ChartType,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+  CategoryScale,
+} from 'chart.js';
 import { DailyLogService } from '../../core/services/daily-log.service';
 import { DailyLog } from '../../core/models/daily-log.model';
+
+// Register Chart.js components
+Chart.register(
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  CategoryScale,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+);
 
 @Component({
   selector: 'app-progress',

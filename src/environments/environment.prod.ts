@@ -10,7 +10,7 @@ export const environment = {
     measurementId: 'G-TEECK2DRMK',
   },
   cloudinary: {
-    cloudName: 'djnvzdffx', // TODO: Replace with your Cloudinary cloud name
+    cloudName: 'djnvzdffx', // your Cloudinary cloud name
     folder: 'detox-fall', // Base folder in Cloudinary (products will be in detox-fall/products)
   },
 };

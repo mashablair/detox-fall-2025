@@ -69,17 +69,24 @@ export class DailyLogComponent implements OnInit {
     this.lunchSupplements = supplementsByTiming.lunch;
     this.dinnerSupplements = supplementsByTiming.dinner;
 
-    // Setup supplement form controls (one control per supplement entry, not per product)
+    // Setup supplement form controls (one control per supplement entry)
     const supplementsGroup = this.logForm.get('supplements') as FormGroup;
-    const allSupplements = [
-      ...this.morningSupplements,
-      ...this.lunchSupplements,
-      ...this.dinnerSupplements,
-    ];
 
-    allSupplements.forEach((supplement, index) => {
-      // Create unique key: productId-timing-index
-      const key = `${supplement.productId}-${supplement.timing}-${index}`;
+    // Add controls for morning supplements
+    this.morningSupplements.forEach((supplement, index) => {
+      const key = this.getSupplementControlName(supplement, index);
+      supplementsGroup.addControl(key, this.fb.control(false));
+    });
+
+    // Add controls for lunch supplements
+    this.lunchSupplements.forEach((supplement, index) => {
+      const key = this.getSupplementControlName(supplement, index);
+      supplementsGroup.addControl(key, this.fb.control(false));
+    });
+
+    // Add controls for dinner supplements
+    this.dinnerSupplements.forEach((supplement, index) => {
+      const key = this.getSupplementControlName(supplement, index);
       supplementsGroup.addControl(key, this.fb.control(false));
     });
 
