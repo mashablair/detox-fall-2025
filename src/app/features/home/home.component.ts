@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NgIcon } from '@ng-icons/core';
 import { UserService } from '../../core/services/user.service';
-import { ProtocolService, ProtocolPhase } from '../../core/services/protocol.service';
+import { ProtocolService } from '../../core/services/protocol.service';
 import { DailyLogService } from '../../core/services/daily-log.service';
+import { ProtocolPhase } from '../../core/models/protocol.model';
 
 @Component({
   selector: 'app-home',
@@ -62,9 +63,13 @@ export class HomeComponent implements OnInit {
     const dayNumber = this.protocolService.getDayNumber(today);
     this.currentDay.set(dayNumber);
 
-    // Get current phase and translate to Russian
-    const phase = this.protocolService.getPhase(today);
-    this.currentPhase.set(this.translatePhase(phase));
+    // Get current phase (which now includes Russian title)
+    const phase = this.protocolService.getCurrentPhase(today);
+    if (phase) {
+      this.currentPhase.set(`Неделя ${phase.week}: ${phase.subtitle}`);
+    } else {
+      this.currentPhase.set('');
+    }
   }
 
   /**
@@ -111,24 +116,6 @@ export class HomeComponent implements OnInit {
     }
 
     return streak;
-  }
-
-  /**
-   * Translate phase to Russian
-   */
-  private translatePhase(phase: ProtocolPhase | null): string {
-    if (!phase) return '';
-
-    switch (phase) {
-      case ProtocolPhase.Phase1:
-        return 'Фаза 1: Очищение';
-      case ProtocolPhase.Phase2:
-        return 'Фаза 2: Восстановление';
-      case ProtocolPhase.Phase3:
-        return 'Фаза 3: Укрепление';
-      default:
-        return '';
-    }
   }
 
   /**

@@ -4,4 +4,5 @@ export interface UserProfile {
   firstName: string;
   lastName: string;
   country: string;
+  products: string[]; // Array of product IDs user has selected (e.g., ['vmg-plus', 'eo-mega'])
 }

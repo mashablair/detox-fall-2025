@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../core/services/user.service';
@@ -18,6 +18,9 @@ export class OnboardingComponent {
 
   // Store start date temporarily
   startDate = signal<string>('');
+
+  // Get reference to products checklist component
+  productsChecklist = viewChild(ProductsChecklistComponent);
 
   constructor(private userService: UserService, private router: Router) {}
 
@@ -62,14 +65,18 @@ export class OnboardingComponent {
     }
 
     try {
-      // Save start date to user profile
+      // Get selected products from checklist component
+      const checklist = this.productsChecklist();
+      const selectedProducts = checklist ? checklist.getCheckedProductIds() : [];
+
+      // Save start date and products to user profile
       await this.userService.setUserProfile({
         ...existingProfile,
         startDate: this.startDate(),
+        products: selectedProducts,
       });
 
-      // TODO: In the future, we can save the product checklist state to Firestore
-      // For now, the checklist is just for user awareness during onboarding
+      console.log('Onboarding complete. Selected products:', selectedProducts);
 
       // Navigate to dashboard
       this.router.navigate(['/dashboard']);

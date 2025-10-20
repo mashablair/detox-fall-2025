@@ -1,26 +1,31 @@
 import { Injectable, computed } from '@angular/core';
 import { UserService } from './user.service';
+import { ProtocolPhase, ProtocolSupplement, WeekSchedule } from '../models/protocol.model';
+import { PROTOCOL_PHASES } from '../data/protocol-phases.data';
+import { PROTOCOL_SCHEDULE, getScheduleForWeek } from '../data/protocol-schedule.data';
 
-// Using a simple enum for phases for type safety and clarity
-export enum ProtocolPhase {
-  Phase1 = 'Month 1 = Calm & Clear',
-  Phase2 = 'Months 2-3 = Rebuild & Restore',
-  Phase3 = 'Months 4-6 = Energize & Protect',
-}
-
+/**
+ * ProtocolService
+ * Manages the 4-week (30-day) detox protocol
+ * Calculates current week/phase and provides supplement schedules
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class ProtocolService {
+  // Get user's start date from UserService
   startDate = computed(() => this.userService.userProfile()?.startDate);
+
+  // Get user's selected products from UserService
+  userProducts = computed(() => this.userService.userProfile()?.products || []);
 
   constructor(private userService: UserService) {}
 
   /**
-   * Calculates the difference in days between two dates.
-   * @param date1 - The first date (YYYY-MM-DD).
-   * @param date2 - The second date (YYYY-MM-DD).
-   * @returns The number of days between the two dates.
+   * Calculates the difference in days between two dates
+   * @param date1 - The first date (YYYY-MM-DD)
+   * @param date2 - The second date (YYYY-MM-DD)
+   * @returns The number of days between the two dates
    */
   private getDateDifferenceInDays(date1: string, date2: string): number {
     const d1 = new Date(date1);
@@ -30,9 +35,9 @@ export class ProtocolService {
   }
 
   /**
-   * Gets the current day number in the protocol for a given date.
+   * Gets the current day number in the protocol (1-30)
    * @param forDate - The date to check (YYYY-MM-DD). Defaults to today.
-   * @returns The day number (1-90) or null if the start date is not set.
+   * @returns The day number (1-30) or null if start date is not set
    */
   public getDayNumber(forDate: string = new Date().toISOString().split('T')[0]): number | null {
     const startDate = this.startDate();
@@ -44,68 +49,118 @@ export class ProtocolService {
   }
 
   /**
-   * Gets the current protocol phase for a given date.
+   * Gets the current week number in the protocol (1-4)
    * @param forDate - The date to check (YYYY-MM-DD). Defaults to today.
-   * @returns The current ProtocolPhase or null.
+   * @returns The week number (1-4) or null
    */
-  public getPhase(forDate: string = new Date().toISOString().split('T')[0]): ProtocolPhase | null {
+  public getWeekNumber(forDate: string = new Date().toISOString().split('T')[0]): number | null {
     const dayNumber = this.getDayNumber(forDate);
     if (dayNumber === null) return null;
 
-    if (dayNumber <= 30) {
-      // Month 1
-      return ProtocolPhase.Phase1;
-    } else if (dayNumber <= 90) {
-      // Months 2-3
-      // Placeholder for future phases
-      return ProtocolPhase.Phase2;
-    } else {
-      // Handle days beyond 90 if necessary
-      return null;
-    }
+    // 30 days / 4 weeks ≈ 7-8 days per week
+    // Week 1: Days 1-7
+    // Week 2: Days 8-14
+    // Week 3: Days 15-21
+    // Week 4: Days 22-30
+    if (dayNumber <= 7) return 1;
+    if (dayNumber <= 14) return 2;
+    if (dayNumber <= 21) return 3;
+    if (dayNumber <= 30) return 4;
+
+    // After day 30, program is complete
+    return null;
   }
 
   /**
-   * Gets the list of required supplements for a given date.
-   * @param forDate - The date to check (YYYY-MM-DD). Defaults to today.
-   * @returns An array of supplement names.
+   * Gets the phase metadata for a specific week
+   * @param week - Week number (1-4)
+   * @returns ProtocolPhase or null
    */
-  public getSupplementsForDay(forDate: string = new Date().toISOString().split('T')[0]): string[] {
-    const phase = this.getPhase(forDate);
-    if (phase !== ProtocolPhase.Phase1) {
-      // For now, we only have the schedule for Phase 1
-      return [];
-    }
+  public getPhaseForWeek(week: number): ProtocolPhase | null {
+    return PROTOCOL_PHASES.find((p) => p.week === week) || null;
+  }
 
-    const dayNumber = this.getDayNumber(forDate);
-    if (dayNumber === null) return [];
+  /**
+   * Gets the current phase metadata
+   * @param forDate - The date to check (YYYY-MM-DD). Defaults to today.
+   * @returns ProtocolPhase or null
+   */
+  public getCurrentPhase(
+    forDate: string = new Date().toISOString().split('T')[0]
+  ): ProtocolPhase | null {
+    const week = this.getWeekNumber(forDate);
+    if (week === null) return null;
+    return this.getPhaseForWeek(week);
+  }
 
-    // --- Phase 1 Supplement Logic ---
-    const supplements: string[] = [
-      'DigestZen',
-      'Enzymes',
-      'Probiotic',
-      'Fiber',
-      'Omega + VMG',
-      'Turmeric',
-      'Vitamin D',
-    ];
+  /**
+   * Gets the supplement schedule for a specific week
+   * @param week - Week number (1-4)
+   * @returns WeekSchedule or null
+   */
+  public getScheduleForWeek(week: number): WeekSchedule | null {
+    return getScheduleForWeek(week) || null;
+  }
 
-    // GX Assist: 3 days on, 10 days off. This cycle repeats.
-    // The total cycle length is 13 days.
-    const dayInCycle = (dayNumber - 1) % 13;
-    if (dayInCycle < 3) {
-      // Day 0, 1, 2 of the cycle are "on" days (which are Days 1, 2, 3 of protocol)
-      supplements.push('GX Assist');
-    }
+  /**
+   * Gets supplements for a specific day, filtered by user's products
+   * Only returns supplements that the user has checked in onboarding
+   * @param forDate - The date to check (YYYY-MM-DD). Defaults to today.
+   * @returns Array of ProtocolSupplement items the user has
+   */
+  public getSupplementsForDay(
+    forDate: string = new Date().toISOString().split('T')[0]
+  ): ProtocolSupplement[] {
+    const week = this.getWeekNumber(forDate);
+    if (week === null) return [];
 
-    // Zendocrine is used minimally until constipation improves.
-    // For now, we can add it based on a simple rule, e.g., every other day.
-    // This logic can be made more sophisticated later based on user input.
-    if (dayNumber % 2 === 0) {
-      supplements.push('Zendocrine');
-    }
+    const schedule = this.getScheduleForWeek(week);
+    if (!schedule || schedule.locked) return [];
 
-    return supplements;
+    const userProducts = this.userProducts();
+
+    // Filter supplements to only show ones the user has
+    return schedule.supplements.filter((supplement) => userProducts.includes(supplement.productId));
+  }
+
+  /**
+   * Gets supplements grouped by timing for a specific day
+   * Only includes supplements the user has
+   * @param forDate - The date to check (YYYY-MM-DD). Defaults to today.
+   * @returns Object with morning, lunch, and dinner arrays
+   */
+  public getSupplementsByTiming(forDate: string = new Date().toISOString().split('T')[0]): {
+    morning: ProtocolSupplement[];
+    lunch: ProtocolSupplement[];
+    dinner: ProtocolSupplement[];
+  } {
+    const supplements = this.getSupplementsForDay(forDate);
+
+    return {
+      morning: supplements.filter((s) => s.timing === 'morning'),
+      lunch: supplements.filter((s) => s.timing === 'lunch'),
+      dinner: supplements.filter((s) => s.timing === 'dinner'),
+    };
+  }
+
+  /**
+   * Checks if the current week's schedule is locked (not yet available)
+   * @param forDate - The date to check (YYYY-MM-DD). Defaults to today.
+   * @returns true if locked, false if available
+   */
+  public isCurrentWeekLocked(forDate: string = new Date().toISOString().split('T')[0]): boolean {
+    const week = this.getWeekNumber(forDate);
+    if (week === null) return true;
+
+    const schedule = this.getScheduleForWeek(week);
+    return schedule?.locked || false;
+  }
+
+  /**
+   * Gets all phase metadata
+   * @returns Array of all ProtocolPhase objects
+   */
+  public getAllPhases(): ProtocolPhase[] {
+    return PROTOCOL_PHASES;
   }
 }

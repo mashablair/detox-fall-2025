@@ -52,12 +52,16 @@ export class EditProfileComponent implements OnInit {
     this.successMessage.set('');
 
     try {
+      // Get current profile to preserve products array
+      const currentProfile = this.userService.userProfile();
+
       const updatedProfile: UserProfile = {
         firstName: this.firstName,
         lastName: this.lastName,
         country: this.country,
         email: this.email,
         startDate: this.startDate,
+        products: currentProfile?.products || [], // Preserve existing products
       };
 
       await this.userService.setUserProfile(updatedProfile);

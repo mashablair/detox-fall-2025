@@ -1,4 +1,4 @@
-import { Component, signal, computed, OnInit } from '@angular/core';
+import { Component, signal, computed, OnInit, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../core/services/user.service';
@@ -143,6 +143,13 @@ export class ProductsChecklistComponent implements OnInit {
    */
   isChecked(productId: string): boolean {
     return this.checkedProducts().has(productId);
+  }
+
+  /**
+   * Get array of checked product IDs
+   */
+  getCheckedProductIds(): string[] {
+    return Array.from(this.checkedProducts());
   }
 
   /**

@@ -25,6 +25,9 @@ import {
   heroBookOpen,
   heroSparkles,
   heroBeaker,
+  heroSun,
+  heroMoon,
+  heroInformationCircle,
 } from '@ng-icons/heroicons/outline';
 
 /**
@@ -60,4 +63,7 @@ export const appIcons = {
   heroArrowRightOnRectangle,
   heroSparkles,
   heroBeaker,
+  heroSun,
+  heroMoon,
+  heroInformationCircle,
 };

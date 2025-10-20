@@ -59,7 +59,7 @@ export class SignupComponent {
       // Sign up and get the created user
       const user = await this.authService.signUp(this.email, this.password);
 
-      // Save initial user profile with all fields except startDate
+      // Save initial user profile with all fields except startDate and products
       // Pass the user UID directly to avoid timing issues
       await this.userService.setUserProfile(
         {
@@ -68,6 +68,7 @@ export class SignupComponent {
           country: this.country,
           email: this.email,
           startDate: '', // Will be set in onboarding
+          products: [], // Will be set in onboarding
         },
         user.uid
       );

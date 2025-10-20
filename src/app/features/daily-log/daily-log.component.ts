@@ -5,8 +5,12 @@ import { Router } from '@angular/router';
 import { NgIcon } from '@ng-icons/core';
 import { ProtocolService } from '../../core/services/protocol.service';
 import { DailyLogService } from '../../core/services/daily-log.service';
+import { ImageService } from '../../core/services/image.service';
 import { HABITS, TIPS } from '../../core/data/nutrition.data';
 import { HabitDef, TipRule } from '../../core/models/nutrition.model';
+import { ProtocolSupplement } from '../../core/models/protocol.model';
+import { INITIAL_PRODUCTS } from '../../core/data/products.data';
+import { Product } from '../../core/models/products.model';
 
 @Component({
   selector: 'app-daily-log',
@@ -17,8 +21,12 @@ import { HabitDef, TipRule } from '../../core/models/nutrition.model';
 })
 export class DailyLogComponent implements OnInit {
   logForm: FormGroup;
-  supplementsForToday: string[] = [];
   today = new Date().toISOString().split('T')[0];
+
+  // Supplements by timing
+  morningSupplements: ProtocolSupplement[] = [];
+  lunchSupplements: ProtocolSupplement[] = [];
+  dinnerSupplements: ProtocolSupplement[] = [];
 
   // Nutrition tracking
   dailyHabits: HabitDef[] = [];
@@ -31,6 +39,7 @@ export class DailyLogComponent implements OnInit {
     private fb: FormBuilder,
     private protocolService: ProtocolService,
     private dailyLogService: DailyLogService,
+    public imageService: ImageService,
     private router: Router
   ) {
     // Filter habits by period (daily only)
@@ -54,10 +63,24 @@ export class DailyLogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.supplementsForToday = this.protocolService.getSupplementsForDay(this.today);
+    // Get supplements grouped by timing from protocol service
+    const supplementsByTiming = this.protocolService.getSupplementsByTiming(this.today);
+    this.morningSupplements = supplementsByTiming.morning;
+    this.lunchSupplements = supplementsByTiming.lunch;
+    this.dinnerSupplements = supplementsByTiming.dinner;
+
+    // Setup supplement form controls (one control per supplement entry, not per product)
     const supplementsGroup = this.logForm.get('supplements') as FormGroup;
-    this.supplementsForToday.forEach((supplement) => {
-      supplementsGroup.addControl(supplement, this.fb.control(false));
+    const allSupplements = [
+      ...this.morningSupplements,
+      ...this.lunchSupplements,
+      ...this.dinnerSupplements,
+    ];
+
+    allSupplements.forEach((supplement, index) => {
+      // Create unique key: productId-timing-index
+      const key = `${supplement.productId}-${supplement.timing}-${index}`;
+      supplementsGroup.addControl(key, this.fb.control(false));
     });
 
     // Setup nutrition habits form controls
@@ -181,5 +204,19 @@ export class DailyLogComponent implements OnInit {
   getHabitValue(habitId: string): any {
     const habitsGroup = this.logForm.get('habits') as FormGroup;
     return habitsGroup.get(habitId)?.value || 0;
+  }
+
+  /**
+   * Get form control name for a supplement
+   */
+  getSupplementControlName(supplement: ProtocolSupplement, index: number): string {
+    return `${supplement.productId}-${supplement.timing}-${index}`;
+  }
+
+  /**
+   * Get product details by ID
+   */
+  getProduct(productId: string): Product | undefined {
+    return INITIAL_PRODUCTS.find((p) => p.id === productId);
   }
 }
