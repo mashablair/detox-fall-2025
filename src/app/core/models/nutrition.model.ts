@@ -7,10 +7,16 @@ export interface NutritionPrinciple {
   bullets: string[];
 }
 
+export interface FoodItem {
+  name: string; // e.g., "Сахар и быстрые углеводы"
+  examples: string; // e.g., "белый хлеб, выпечка, сладости, газировка"
+  reason: string; // e.g., "создают воспаление и ускоряют укорочение теломер"
+}
+
 export interface FoodGuideline {
   id: string;
   category: 'allow' | 'limit' | 'avoid';
-  items: string[];
+  items: FoodItem[];
   notes?: string[];
 }
 
