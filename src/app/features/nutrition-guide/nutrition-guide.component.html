@@ -39,6 +39,66 @@
       </div>
     </div>
 
+    <!-- Your Plate Formula Card -->
+    <div class="bg-white rounded-lg shadow-lg p-8">
+      <div class="space-y-6">
+        <h2 class="text-2xl font-display font-bold text-cream-900 mb-6 flex items-center gap-2">
+          <ng-icon name="heroSparkles" size="24" style="color: var(--color-brand-600)" />
+          Формула Твоей Тарелки
+        </h2>
+
+        <!-- Plate Image -->
+        <div class="flex flex-col md:flex-row gap-8 items-center">
+          <div class="w-full md:w-1/2 max-w-sm mx-auto">
+            <img
+              src="assets/healthy-plate.webp"
+              alt="Формула здоровой тарелки"
+              class="w-full h-auto rounded-lg shadow-md"
+            />
+          </div>
+
+          <!-- Detailed Breakdown -->
+          <div class="w-full md:w-1/2">
+            <h3 class="text-lg font-semibold text-cream-900 mb-4">Состав Тарелки:</h3>
+            <ul class="space-y-3">
+              @for (item of plateFormula; track $index) {
+              <li class="flex gap-3 text-cream-800 leading-relaxed">
+                <ng-icon
+                  name="heroCheckCircle"
+                  size="20"
+                  class="shrink-0 mt-0.5"
+                  style="color: var(--color-brand-600)"
+                />
+                <span>{{ item }}</span>
+              </li>
+              }
+            </ul>
+          </div>
+        </div>
+
+        <!-- Sample Day Menu -->
+        <div class="mt-8 pt-6 border-t border-cream-200">
+          <h3 class="text-lg font-semibold text-cream-900 mb-4 flex items-center gap-2">
+            <ng-icon name="heroLightBulb" size="20" style="color: var(--color-brand-600)" />
+            Пример Дня:
+          </h3>
+          <div class="space-y-3">
+            @for (meal of sampleDay; track $index) {
+            <div class="bg-cream-50 rounded-lg p-4 border-l-4 border-brand-500">
+              <p class="text-cream-800 leading-relaxed">{{ meal }}</p>
+            </div>
+            }
+          </div>
+          <div class="bg-brand-50 border-l-4 border-brand-500 p-4 rounded mt-4">
+            <p class="text-sm text-brand-900">
+              <span class="font-semibold">💡 Совет:</span> Готовь на неделю — отвари киноа/гречку,
+              запеки овощи, приготовь хумус/тахини. Собирай боулы за 5 минут!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Foods to Avoid Card -->
     <div class="bg-white rounded-lg shadow-lg p-8">
       <div class="space-y-6">

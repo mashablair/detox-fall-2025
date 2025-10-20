@@ -174,7 +174,14 @@ export const INITIAL_PRODUCTS: Product[] = [
   },
 ];
 
-const ADD_PRODUCTS = ['castor oil', 'castor oil packs', 'activated charcoal', 'base oils kit'];
+const ADD_PRODUCTS = [
+  'castor oil',
+  'castor oil packs',
+  'activated charcoal',
+  'base oils kit',
+  'fiber',
+  'advanced protocol EOs',
+];
 
 export const OTHER_PRODUCTS = [
   {
