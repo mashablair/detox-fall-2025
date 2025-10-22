@@ -1,6 +1,10 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;600;700&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap');
 @import "tailwindcss";
 
+/* =========================
+   THEME CONFIGURATION
+   ========================= */
 @theme {
   /* Warm Fall Detox Color Palette */
   --color-brand-50: #f9faf7;
@@ -26,10 +30,42 @@
   --color-cream-800: #6b5e50; /* Secondary icons, less prominent */
   --color-cream-900: #4a3f35; /* Primary icon color - soft alternative to black */
 
+  /* Shadows */
   --shadow-soft: 0 10px 30px -10px rgba(122, 155, 93, 0.25);
+
   /* Fonts */
-  --font-display: "Clash Display", sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+
+  --font-display: "Montserrat", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+
+  --font-landing-headings: "Playfair Display", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 }
+
+/* =========================
+   UTILITIES & BASE STYLES
+   ========================= */
+
+/* Custom utility class for display font */
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+/* Base typography styles */
+@layer base {
+  body {
+    @apply font-sans text-cream-900 bg-cream-50;
+  }
+
+  h1, h2, h3, .display-heading {
+    font-family: var(--font-display);
+    @apply font-semibold leading-tight tracking-tight;
+  }
+}
+
 
 /* Smooth scrolling for anchor links */
 html {

@@ -28,7 +28,7 @@ export class SidebarComponent {
       current: true,
     },
     {
-      name: 'Дневник',
+      name: 'Дневной отчёт',
       route: '/log-daily',
       icon: 'heroCalendar',
       current: false,
