@@ -45,9 +45,16 @@ src/app/
 
 - **Model**: `UserProfile` interface with firstName, lastName, country, email, startDate, products
 - **Storage**: Firestore collection `userProfiles` (document ID = Firebase Auth UID)
+- **Cache**: localStorage cache for instant page loads (key: `detox_user_profile`)
 - **Service**: `UserService` handles all profile CRUD operations
-- **Auto-sync**: Profile loads on login, clears on logout via callback pattern
+- **Cache-First Strategy**: 
+  1. Load from localStorage immediately (instant display)
+  2. Fetch from Firestore in background to verify/update cache
+  3. All profile updates save to both Firestore and localStorage
+  4. Logout clears both Firestore cache and localStorage
+- **Auto-sync**: Profile loads on login with cache-first strategy, clears on logout via callback pattern
 - **Products Field**: Array of product IDs user selected in onboarding (e.g., ['vmg-plus', 'eo-mega'])
+- **Cross-device sync**: When user logs in on different device, Firestore provides latest data and updates local cache
 
 ### Data Services
 
@@ -55,6 +62,49 @@ src/app/
 - Async operations return Promises
 - Services are `@Injectable({ providedIn: 'root' })`
 - Firestore integration uses `@angular/fire/firestore`
+- **StorageService**: Wrapper for localStorage operations (setItem, getItem, removeItem) with error handling
+- **Caching Strategy**: User profiles cached in localStorage for instant page loads, with background sync from Firestore
+
+### Key Services
+
+**UserService** (`core/services/user.service.ts`):
+- **userProfile signal**: Reactive state for current user's profile
+- **loadUserProfileWithCache(userId)**: Private method using cache-first strategy
+  - Step 1: Load from localStorage (instant)
+  - Step 2: Fetch from Firestore in background (sync)
+- **setUserProfile(profile, userId?)**: Save profile to Firestore + localStorage
+- **clearUserProfile()**: Clear profile from signal + localStorage (logout)
+- **deleteUserProfile()**: Delete from Firestore + localStorage (account deletion)
+- **getStartDate()**: Returns user's detox start date
+- **Cache Key**: `detox_user_profile`
+
+**StorageService** (`core/services/storage.service.ts`):
+- **setItem<T>(key, value)**: Save to localStorage with JSON serialization
+- **getItem<T>(key)**: Retrieve from localStorage with JSON parsing
+- **removeItem(key)**: Remove from localStorage
+- Error handling for all operations (catches localStorage exceptions)
+
+**ProtocolService** (`core/services/protocol.service.ts`):
+- Uses computed signals to access user's startDate and products from UserService
+- **getDayNumber(date)**: Returns current day 1-30 in program
+- **getWeekNumber(date)**: Returns current week 1-4
+- **getCurrentPhase(date)**: Returns phase metadata with Russian descriptions
+- **getSupplementsByTiming(date)**: Returns supplements grouped by morning/lunch/dinner (filtered by user's products)
+- **isCurrentWeekLocked(date)**: Checks if schedule is available
+
+**DailyLogService** (`core/services/daily-log.service.ts`):
+- Local storage management for daily logs
+- Save and retrieve daily tracking data (habits, symptoms, supplements, notes)
+
+**ImageService** (`core/services/image.service.ts`):
+- Cloudinary image URL generation with transformations
+- Product images, profile avatars (future), general assets
+- Fallback to local assets if Cloudinary not configured
+
+**AuthService** (`core/services/auth.service.ts`):
+- Firebase Authentication wrapper
+- Login, signup, logout, getCurrentUser
+- **onUserAuthStateChanged callback**: Triggers UserService profile load/clear
 
 ### Product Catalog System
 
@@ -578,7 +628,11 @@ export class ComponentNameComponent {
 
 ## Important Notes
 
-- **No localStorage for profiles**: User profiles stored in Firestore, not localStorage
+- **Profile Caching**: User profiles use cache-first strategy (localStorage + Firestore) for instant page loads
+  - localStorage provides immediate display
+  - Firestore background sync ensures data freshness
+  - Works offline with cached data
+  - Cross-device sync via Firestore on login
 - **Auth Timing**: Pass userId directly to avoid timing issues with getCurrentUser()
 - **Disabled Fields**: Email field in profile is disabled (tied to Firebase Auth)
 - **Form Validation**: Email not required in validation if it's disabled
@@ -589,6 +643,15 @@ export class ComponentNameComponent {
 - **Form Control Keys**: Supplements use `productId-timing-index` pattern for unique form control names
 
 ## Implemented Features
+
+✅ **Profile Caching System**:
+
+- Cache-first loading strategy for instant page loads
+- localStorage cache with Firestore background sync
+- Automatic sync on login (updates stale cache)
+- All profile operations update both localStorage and Firestore
+- Graceful offline support (uses cache if Firestore unavailable)
+- Cross-device data consistency via Firestore
 
 ✅ **Protocol System (30-Day Program)**:
 
