@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import {
   Auth,
   createUserWithEmailAndPassword,
@@ -13,10 +13,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private auth: Auth = inject(Auth);
-
   // Observable of the current user
-  user$: Observable<User | null> = user(this.auth);
+  user$: Observable<User | null>;
 
   // Signal for current user (for reactive templates)
   currentUser = signal<User | null>(null);
@@ -24,7 +22,8 @@ export class AuthService {
   // Callback to load user profile - will be set by UserService to avoid circular dependency
   onUserAuthStateChanged?: (user: User | null) => Promise<void>;
 
-  constructor() {
+  constructor(private auth: Auth) {
+    this.user$ = user(this.auth);
     // Subscribe to auth state changes
     this.user$.subscribe(async (user) => {
       this.currentUser.set(user);

@@ -1,4 +1,4 @@
-import { Injectable, signal, inject } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Firestore, doc, getDoc, setDoc, deleteDoc } from '@angular/fire/firestore';
 import { UserProfile } from '../models/user-profile.model';
 import { AuthService } from './auth.service';
@@ -8,13 +8,16 @@ import { StorageService } from './storage.service';
   providedIn: 'root',
 })
 export class UserService {
-  private firestore: Firestore = inject(Firestore);
   private readonly USER_PROFILE_CACHE_KEY = 'detox_user_profile';
 
   // Use a signal for reactive user profile data
   userProfile = signal<UserProfile | null>(null);
 
-  constructor(private authService: AuthService, private storageService: StorageService) {
+  constructor(
+    private firestore: Firestore,
+    private authService: AuthService,
+    private storageService: StorageService
+  ) {
     // Register callback to load/clear profile when auth state changes
     this.authService.onUserAuthStateChanged = async (user) => {
       if (user) {

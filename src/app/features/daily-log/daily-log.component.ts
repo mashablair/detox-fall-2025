@@ -55,6 +55,7 @@ export class DailyLogComponent implements OnInit {
         energy: [3, Validators.required],
         sleep: [3, Validators.required],
         skinEyePuffiness: [3, Validators.required],
+        bowel: [1, Validators.required],
       }),
       supplements: this.fb.group({}), // Will be populated dynamically
       habits: this.fb.group({}), // Will be populated dynamically for nutrition habits
